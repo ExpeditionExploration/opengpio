@@ -1,4 +1,5 @@
 export { Device } from './Device';
-export { Pin } from './Pin';
+export { Input } from './Input';
+export { Output } from './Output';
 export { Pwm } from './Pwm';
 export { Watch } from './Watch';

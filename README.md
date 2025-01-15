@@ -7,7 +7,27 @@ While this library can be used on most devices, you'll need to know the chip and
 
 ## Prerequisites
 
--   libgpiod: `sudo apt install -y libgpiod-dev` - This library requires libgpiod-dev to be installed before installing via npm.
+-   **libgpiod 2.1**
+
+    Libgpiod 2.1 needs to be built from source (Don't worry it's easy).
+
+    ``` sh
+    # Ensure build dependancies
+    sudo apt install tar gzip build-essential autoconf curl autoconf-archive
+    
+    # Fetch libgpiod
+    curl -o libgpiod-2.1.tar.gz 'https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/snapshot/libgpiod-2.1.tar.gz'
+    tar xf libgpiod-2.1.tar.gz
+    cd libgpiod-2.1
+    
+    # Make libgpiod
+    ./autogen.sh --enable-bindings-cxx
+    make
+    sudo make install
+    ```
+
+    **Debugging**
+    If after installing libgpiod you encounter issues loading libgpiod with errors like: `Error: libgpiodcxx.so.2: cannot open shared object file: No such file or directory`, you may need to update the system library cache. You can do this by running: `sudo ldconfig`
 
 ## Supported Features
 
@@ -17,8 +37,8 @@ While this library can be used on most devices, you'll need to know the chip and
 
 ## Unsupported Features
 
--   PWM (Native PWM) - This library does not yet support native PWM, only emulated PWM via GPIO.
--   I2C - We recommending using the i2c-bus library directly.
+-   Native PWM - This library does not yet support native PWM, only emulated PWM via GPIO.
+-   I2C - Use the openi2c library for common i2c module drivers (still highly WIP), or alternatively we recommending using the i2c-bus library directly.
 
 ## Official Device Drivers
 
@@ -78,4 +98,17 @@ import { Default, Edge } from 'opengpio';
 // GPIO Output
 const output = Default.output({ chip: 0, line: 27 });
 output.value = true; // Set the pin high at chip 0 line 27
+```
+
+## Local Development
+
+There's a good chance you are developing your software on a separate system from where it will finally run. In this case opengpio may not be compatible with your system. For example, developing on Windows or Mac for later deployment to Raspberry Pi. In these cases, you can install the library locally using `npm i --save opengpio --ignore-scripts` to prevent npm from running build when it installs. Since bindings will not exist, you will need to tell opengpio not to load the bindings when it imports the library. You can do this by setting the environment variable `OPENGPIO_MOCKED=true`. This will prevent opengpio from loading the native bindings and instead all functions will be replaced with mock functions that don't call the native bindings. 
+
+If you have a case where you need to detect if the library is running with mocked bindings you can check a parameter called "mocked", exported from the library.
+
+```js
+import opengpio from 'opengpio';
+if(opengpio.mocked) {
+    console.log('opengpio is running with mocked bindings');
+}
 ```

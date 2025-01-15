@@ -1,5 +1,5 @@
-import { WatchCallback, Gpio, Edge, CleanupCallback, PinGetter } from '../types';
-import lib from '../lib';
+import { WatchCallback, Gpio, Edge, CleanupCallback, PinGetter, GpioInputOptions } from '../types';
+import { bindings } from '../bindings';
 import { EventEmitter } from 'events';
 
 export class Watch extends EventEmitter {
@@ -9,10 +9,11 @@ export class Watch extends EventEmitter {
 
     constructor(
         gpio: Gpio,
-        private edge: Edge
+        private edge: Edge,
+        options: GpioInputOptions = {}
     ) {
         super();
-        const [getter, cleanup] = lib.watch(gpio.chip, gpio.line, (value) => {
+        const [getter, cleanup] = bindings.watch(gpio.chip, gpio.line, options.debounce ?? 0, options.bias ?? 0, (value) => {
             if (value && (edge === Edge.Rising || edge === Edge.Both)) {
                 // Has risen to true
                 this.emit('event', value);
@@ -26,6 +27,7 @@ export class Watch extends EventEmitter {
             }
         });
 
+        this.getter = getter;
         this.cleanup = cleanup;
     }
 
