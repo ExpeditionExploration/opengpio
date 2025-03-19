@@ -13,7 +13,7 @@ While this library can be used on most devices, you'll need to know the chip and
     You can run the script below to add the correct mirror to the sources list.
 
     ```sh
-    grep -qxF "deb https://deb.debian.org/debian sid main" "/etc/apt/sources.list" || echo "deb https://deb.debian.org/debian sid main" | sudo tee -a "/etc/apt/sources.list"
+    file="/etc/apt/sources.list"; line="deb https://deb.debian.org/debian sid main"; grep -qxF "$line" $file || echo $line | sudo tee -a $file
     ```
 
     After adding the mirror, run the following to install the correct version.
