@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 
 export class Watch extends EventEmitter {
     private getter: PinGetter = () => false;
-    private cleanup: CleanupCallback = () => { };
+    private cleanup: CleanupCallback = () => {};
     private stopped: boolean = false;
 
     constructor(

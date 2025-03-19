@@ -1,7 +1,7 @@
 import { Device } from '../classes/Device';
 
 export default class RaspberryPi_400 extends Device {
-    //as of 
+    //as of
     //- https://www.raspberrypi.com/documentation/computers/raspberry-pi.html
     //- https://pinout.xyz/ (in [] brackets if different)
     //- and the output of gpioinfo (in brackets () if different)

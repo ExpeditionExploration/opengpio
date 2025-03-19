@@ -1,14 +1,17 @@
-import { CleanupCallback, DutyCycleSetter, FrequencySetter, Gpio } from "../types";
+import { CleanupCallback, DutyCycleSetter, FrequencySetter, Gpio } from '../types';
 import lib from '../lib';
 
 export class Pwm {
-    private dutyCycleSetter: DutyCycleSetter = () => { };
-    private frequencySetter: FrequencySetter = () => { };
-    private cleanup: CleanupCallback = () => { };
+    private dutyCycleSetter: DutyCycleSetter = () => {};
+    private frequencySetter: FrequencySetter = () => {};
+    private cleanup: CleanupCallback = () => {};
     private stopped: boolean = false;
 
-
-    constructor(private gpio: Gpio, private dutyCycle: number, private frequency: number = 50) {
+    constructor(
+        private gpio: Gpio,
+        private dutyCycle: number,
+        private frequency: number = 50
+    ) {
         const [setDutyCycle, setFrequency, cleanup] = lib.pwm(gpio.chip, gpio.line, dutyCycle, frequency);
 
         this.dutyCycleSetter = setDutyCycle;

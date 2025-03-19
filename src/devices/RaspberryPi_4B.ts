@@ -1,7 +1,7 @@
 import { Device } from '../classes/Device';
 
 export default class RaspberryPi_4B extends Device {
-    //as of 
+    //as of
     //- https://datasheets.raspberrypi.com/rpi4/raspberry-pi-4-reduced-schematics.pdf
     //- https://www.raspberrypi.com/documentation/computers/raspberry-pi.html
     //- https://pinout.xyz/ (in [] brackets if different)

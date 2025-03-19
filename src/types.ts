@@ -21,11 +21,7 @@ export type OpenGpioBindings = {
     info: () => string;
     input: (chip: number, line: number) => [PinGetter, CleanupCallback];
     output: (chip: number, line: number) => [PinSetter, CleanupCallback];
-    watch: (
-        chip: number,
-        line: number,
-        callback: WatchCallback,
-    ) => [PinGetter, CleanupCallback];
+    watch: (chip: number, line: number, callback: WatchCallback) => [PinGetter, CleanupCallback];
     pwm: (
         chip: number,
         line: number,

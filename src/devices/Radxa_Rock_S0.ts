@@ -29,8 +29,7 @@ export default class Radxa_Rock_S0 extends Device {
         7: { chip: 2, line: 13 },
         11: { chip: 2, line: 14 },
         18: { chip: 2, line: 15 },
-        29: { chip: 2, line: 16 },
-
+        29: { chip: 2, line: 16 }
     };
 
     static bcm = {
@@ -59,6 +58,6 @@ export default class Radxa_Rock_S0 extends Device {
         PIN_7: this.board[7],
         PIN_11: this.board[11],
         PIN_18: this.board[18],
-        PIN_29: this.board[29],
+        PIN_29: this.board[29]
     };
 }
