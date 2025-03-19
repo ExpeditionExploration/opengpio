@@ -9,21 +9,17 @@ While this library can be used on most devices, you'll need to know the chip and
 
 -   **libgpiod 2.1**
 
-    Libgpiod 2.1 needs to be built from source (Don't worry it's easy).
+    To install libgpiod 2.1 you will need to ensure you have the correct mirror in your sources.
+    You can run the script below to add the correct mirror to the sources list.
 
-    ``` sh
-    # Ensure build dependancies
-    sudo apt install tar gzip build-essential autoconf curl autoconf-archive
-    
-    # Fetch libgpiod
-    curl -o libgpiod-2.1.tar.gz 'https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/snapshot/libgpiod-2.1.tar.gz'
-    tar xf libgpiod-2.1.tar.gz
-    cd libgpiod-2.1
-    
-    # Make libgpiod
-    ./autogen.sh --enable-bindings-cxx
-    make
-    sudo make install
+    ```sh
+    grep -qxF "deb https://deb.debian.org/debian sid main" "/etc/apt/sources.list" || echo "deb https://deb.debian.org/debian sid main" | sudo tee -a "/etc/apt/sources.list"
+    ```
+
+    After adding the mirror, run the following to install the correct version.
+
+    ```sh
+    sudo apt install -t sid libgpiod-dev
     ```
 
     **Debugging**

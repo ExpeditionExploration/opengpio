@@ -4,6 +4,12 @@ rm -rf libgpiod-2.1
 
 # Ensure build dependancies
 echo "Ensure build dependancies"
+
+
+sudo tee /etc/apt/sources.list.d/sid.list <<EOF
+deb http://deb.debian.org/debian sid main
+EOF
+sudo apt update
 sudo apt install tar gzip build-essential autoconf curl autoconf-archive autoupdate
 
 # Fetch libgpiod on branch 2.1.x
