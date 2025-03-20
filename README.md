@@ -7,19 +7,29 @@ While this library can be used on most devices, you'll need to know the chip and
 
 ## Prerequisites
 
--   **libgpiod 2.1**
+-   **libgpiod 2.x**
 
-    To install libgpiod 2.1 you will need to ensure you have the correct mirror in your sources.
-    You can run the script below to add the correct mirror to the sources list.
-
-    ```sh
-    file="/etc/apt/sources.list"; line="deb https://deb.debian.org/debian sid main"; grep -qxF "$line" $file || echo $line | sudo tee -a $file
-    ```
-
-    After adding the mirror, run the following to install the correct version.
+    To install libgpiod 2.x you will need Debian repository mirror in your sources.
+    You can run the script below to install it.
 
     ```sh
+    # Add Debian repository sid (unstable) mirror to APT sources
+    echo "deb https://deb.debian.org/debian sid main" | sudo tee /etc/apt/sources.list.d/debian-sid.list
+
+    # Install Debian repository keyring
+    sudo apt install debian-archive-keyring
+
+    # Add it to APT keystore
+    sudo ln -s /usr/share/keyrings/debian-archive-keyring.gpg /etc/apt/trusted.gpg.d/
+
+    # Fetch package list from Debian repository mirror
+    sudo apt update
+
+    # Install https://packages.debian.org/sid/libgpiod-dev
     sudo apt install -t sid libgpiod-dev
+
+    # (Optionally unlink Debian repository keyring for safety)
+    sudo rm /etc/apt/trusted.gpg.d/debian-archive-keyring.gpg
     ```
 
     **Debugging**
