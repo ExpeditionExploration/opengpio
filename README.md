@@ -108,13 +108,13 @@ output.value = true; // Set the pin high at chip 0 line 27
 
 ## Local Development
 
-There's a good chance you are developing your software on a separate system from where it will finally run. In this case opengpio may not be compatible with your system. For example, developing on Windows or Mac for later deployment to Raspberry Pi. In these cases, you can install the library locally using `npm i --save opengpio --ignore-scripts` to prevent npm from running build when it installs. Since bindings will not exist, you will need to tell opengpio not to load the bindings when it imports the library. You can do this by setting the environment variable `OPENGPIO_MOCKED=true`. This will prevent opengpio from loading the native bindings and instead all functions will be replaced with mock functions that don't call the native bindings. 
+There's a good chance you are developing your software on a separate system from where it will finally run. In this case opengpio may not be compatible with your system. For example, developing on Windows or Mac for later deployment to Raspberry Pi. In these cases, you can install the library locally using `npm i --save opengpio --ignore-scripts` to prevent npm from running build when it installs. Since bindings will not exist, you will need to tell opengpio not to load the bindings when it imports the library. You can do this by setting the environment variable `OPENGPIO_MOCKED=true`. This will prevent opengpio from loading the native bindings and instead all functions will be replaced with mock functions that don't call the native bindings.
 
 If you have a case where you need to detect if the library is running with mocked bindings you can check a parameter called "mocked", exported from the library.
 
 ```js
 import opengpio from 'opengpio';
-if(opengpio.mocked) {
+if (opengpio.mocked) {
     console.log('opengpio is running with mocked bindings');
 }
 ```
