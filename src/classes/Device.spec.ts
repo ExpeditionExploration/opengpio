@@ -15,6 +15,31 @@ describe('Device', () => {
         jest.clearAllMocks();
     });
 
+    describe('getGpioFromIdentifier()', () => {
+        const mockGpio: Gpio = { chip: 1, line: 2 };
+        const mockBoard: Record<number, Gpio> = { 1: mockGpio };
+        const mockBcm: Record<string, Gpio> = { 'GPIO1': mockGpio };
+
+        Device.board = mockBoard;
+        Device.bcm = mockBcm;
+
+        it('should return the correct GPIO object when given a GPIO object', () => {
+            expect(Device['getGpioFromIdentifier'](mockGpio)).toBe(mockGpio);
+        });
+
+        it('should return the correct GPIO object when given a board key', () => {
+            expect(Device['getGpioFromIdentifier'](1)).toBe(mockGpio);
+        });
+
+        it('should return the correct GPIO object when given a bcm key', () => {
+            expect(Device['getGpioFromIdentifier']('GPIO1')).toBe(mockGpio);
+        });
+
+        it('should throw an error for invalid identifier types', () => {
+            expect(() => Device['getGpioFromIdentifier'](true as any)).toThrow('Invalid identifier type');
+        });
+    })
+
     describe('input()', () => {
         const mockInputOptions: GpioInputOptions = { debounce: 10 };
         const mockGpio: Gpio = { chip: 1, line: 2 };

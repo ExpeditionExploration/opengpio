@@ -8,11 +8,11 @@ if (!mocked) {
 }
 
 if (mocked) {
-    bindings.info = (() => { }) as any;
-    bindings.input = (() => { }) as any;
-    bindings.output = (() => { }) as any;
-    bindings.pwm = (() => { }) as any;
-    bindings.watch = (() => { }) as any;
+    bindings.info = () => 'mocked';
+    bindings.input = () => [() => true, () => { }];
+    bindings.output = () => [() => { }, () => { }];
+    bindings.pwm = () => [() => { }, () => { }, () => { }];
+    bindings.watch = () => [() => true, () => { }];
 }
 
 export { bindings, mocked };

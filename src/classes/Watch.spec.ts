@@ -1,5 +1,4 @@
 import { Watch } from './Watch';
-import { EventEmitter } from 'events';
 import { bindings } from '../bindings';
 import { Edge, Gpio } from '../types';
 
@@ -45,37 +44,37 @@ describe('Watch', () => {
         expect(watch.value).toBe(false);
     });
 
-    it('should emit "rise" and "event" when value rises', () => {
+    it('should emit "rise" and "change" when value rises', () => {
         const gpio: Gpio = { chip: 0, line: 1 };
         const edge = Edge.Rising;
 
         const watch = new Watch(gpio, edge);
-        const eventSpy = jest.fn();
+        const changeSpy = jest.fn();
         const riseSpy = jest.fn();
 
-        watch.on('event', eventSpy);
+        watch.on('change', changeSpy);
         watch.on('rise', riseSpy);
 
         mockCallback(true);
 
-        expect(eventSpy).toHaveBeenCalledWith(true);
+        expect(changeSpy).toHaveBeenCalledWith(true);
         expect(riseSpy).toHaveBeenCalledWith(true);
     });
 
-    it('should emit "fall" and "event" when value falls', () => {
+    it('should emit "fall" and "change" when value falls', () => {
         const gpio: Gpio = { chip: 0, line: 1 };
         const edge = Edge.Falling;
 
         const watch = new Watch(gpio, edge);
-        const eventSpy = jest.fn();
+        const changeSpy = jest.fn();
         const fallSpy = jest.fn();
 
-        watch.on('event', eventSpy);
+        watch.on('change', changeSpy);
         watch.on('fall', fallSpy);
 
         mockCallback(false);
 
-        expect(eventSpy).toHaveBeenCalledWith(false);
+        expect(changeSpy).toHaveBeenCalledWith(false);
         expect(fallSpy).toHaveBeenCalledWith(false);
     });
 
