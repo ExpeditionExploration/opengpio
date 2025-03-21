@@ -16,12 +16,10 @@ export class Watch extends EventEmitter {
         const [getter, cleanup] = bindings.watch(gpio.chip, gpio.line, options.debounce ?? 0, options.bias ?? 0, (value) => {
             if (value && (edge === Edge.Rising || edge === Edge.Both)) {
                 // Has risen to true
-                this.emit('event', value);
                 this.emit('change', value);
                 this.emit('rise', value);
             } else if (!value && (edge === Edge.Falling || edge === Edge.Both)) {
                 // Has fallen to false
-                this.emit('event', value);
                 this.emit('change', value);
                 this.emit('fall', value);
             }
