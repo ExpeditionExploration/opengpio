@@ -8,7 +8,6 @@ export class Device {
     static board: Record<number, Gpio> = {};
     static bcm: Record<string, Gpio> = {};
 
-    // input<T = typeof this>(gpio: Gpio | keyof T['board'] | keyof T['bcm'] | number) {
     static input<T extends typeof Device>(this: T, gpio: Gpio | keyof T['board'] | keyof T['bcm'], options: Omit<GpioInputOptions, 'debounce'> = {}): Input {
         const resolvedGpio = this.getGpioFromIdentifier(gpio);
         return new Input(resolvedGpio, options);
