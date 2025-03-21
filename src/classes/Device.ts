@@ -3,12 +3,16 @@ import { Pwm } from './Pwm';
 import { Watch } from './Watch';
 import { Input } from './Input';
 import { Output } from './Output';
+import debug from '../debug';
 
 export class Device {
     static board: Record<number, Gpio> = {};
     static bcm: Record<string, Gpio> = {};
+    static logger = debug.extend(this.name);
 
     static input<T extends typeof Device>(this: T, gpio: Gpio | keyof T['board'] | keyof T['bcm'], options: Omit<GpioInputOptions, 'debounce'> = {}): Input {
+        console.log('input', gpio, options);
+        this.logger('input', gpio, options);
         const resolvedGpio = this.getGpioFromIdentifier(gpio);
         return new Input(resolvedGpio, options);
     }
