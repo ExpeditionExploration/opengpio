@@ -2,6 +2,7 @@
     "dependencies": {
         "bindings": "^1.5.0",
         "debug": "^4.3.4",
+        "jest": "^29.7.0",
         "node-addon-api": "^7.0.0"
     },
     "name": "opengpio",
@@ -62,6 +63,7 @@
         "@swc/helpers": "^0.5.6",
         "@types/bindings": "^1.5.3",
         "@types/debug": "^4.1.10",
+        "@types/jest": "^29.5.14",
         "@types/node": "^20.8.10",
         "@typescript-eslint/eslint-plugin": "^6.9.0",
         "@typescript-eslint/parser": "^6.9.0",
