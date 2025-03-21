@@ -1,15 +1,17 @@
 import { CleanupCallback, DutyCycleSetter, FrequencySetter, Gpio, GpioOutputOptions } from "../types";
 import { bindings } from '../bindings';
+import debug from "../debug";
 
 export class Pwm {
     private dutyCycleSetter: DutyCycleSetter = () => { };
     private frequencySetter: FrequencySetter = () => { };
     private cleanup: CleanupCallback = () => { };
     private stopped: boolean = false;
+    private debug = debug.extend(this.constructor.name);
 
 
-    constructor(private gpio: Gpio, private dutyCycle: number, private frequency: number = 50, options: GpioOutputOptions = {}) {
-        // Currently options is not used by lib.pwm but is added for future parameters.
+    constructor(gpio: Gpio, private dutyCycle: number, private frequency: number = 50, options: GpioOutputOptions = {}) {
+        this.debug('constructing pwm with', gpio, dutyCycle, frequency, options);
         const [setDutyCycle, setFrequency, cleanup] = bindings.pwm(gpio.chip, gpio.line, dutyCycle, frequency);
         this.dutyCycleSetter = setDutyCycle;
         this.frequencySetter = setFrequency;
@@ -17,11 +19,13 @@ export class Pwm {
     }
 
     stop() {
+        this.debug('stopping pwm, cleaning up');
         this.stopped = true;
         this.cleanup();
     }
 
     setDutyCycle(dutyCycle: number) {
+        this.debug('setting pwm duty cycle to', dutyCycle);
         if (this.stopped) {
             throw new Error('Cannot set duty cycle on stopped pwm');
         }
@@ -30,6 +34,7 @@ export class Pwm {
     }
 
     setFrequency(frequency: number) {
+        this.debug('setting pwm frequency to', frequency);
         if (this.stopped) {
             throw new Error('Cannot set frequency on stopped pwm');
         }
