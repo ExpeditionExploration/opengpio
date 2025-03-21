@@ -8,20 +8,36 @@ export class Device {
     static board: Record<number, Gpio> = {};
     static bcm: Record<string, Gpio> = {};
 
-    static input(gpio: Gpio, options: Omit<GpioInputOptions, 'debounce'> = {}) {
-        return new Input(gpio, options);
+    static input<T extends typeof Device>(this: T, gpio: Gpio | keyof T['board'] | keyof T['bcm'], options: Omit<GpioInputOptions, 'debounce'> = {}): Input {
+        const resolvedGpio = this.getGpioFromIdentifier(gpio);
+        return new Input(resolvedGpio, options);
     }
-    static output(gpio: Gpio, options: GpioOutputOptions = {}) {
-        return new Output(gpio, options);
+    static output<T extends typeof Device>(this: T, gpio: Gpio | keyof T['board'] | keyof T['bcm'], options: GpioOutputOptions = {}): Output {
+        const resolvedGpio = this.getGpioFromIdentifier(gpio);
+        return new Output(resolvedGpio, options);
     }
-    static watch(
-        gpio: Gpio,
+    static watch<T extends typeof Device>(this: T,
+        gpio: Gpio | keyof T['board'] | keyof T['bcm'],
         edge: Edge,
         options: GpioInputOptions = {}
-    ) {
-        return new Watch(gpio, edge, options);
+    ): Watch {
+        const resolvedGpio = this.getGpioFromIdentifier(gpio);
+        return new Watch(resolvedGpio, edge, options);
     }
-    static pwm(gpio: Gpio, dutyCycle: number, frequency: number, options: GpioOutputOptions = {}) {
-        return new Pwm(gpio, dutyCycle, frequency, options);
+    static pwm<T extends typeof Device>(this: T, gpio: Gpio | keyof T['board'] | keyof T['bcm'], dutyCycle: number, frequency: number, options: GpioOutputOptions = {}): Pwm {
+        const resolvedGpio = this.getGpioFromIdentifier(gpio);
+        return new Pwm(resolvedGpio, dutyCycle, frequency, options);
+    }
+
+    private static getGpioFromIdentifier<T extends typeof Device>(identifier: Gpio | keyof T['board'] | keyof T['bcm']): Gpio {
+        if (typeof identifier === 'object') {
+            return identifier;
+        } else if (typeof identifier === 'string') {
+            return this.bcm[identifier];
+        } else if (typeof identifier === 'number') {
+            return this.board[identifier];
+        }
+
+        throw new Error('Invalid identifier type');
     }
 }
