@@ -7,7 +7,7 @@ const config: Config = {
         '^.+.tsx?$': ['ts-jest', {}]
     },
     verbose: true,
-    // setupFiles: ['./jest.setup.ts'],
+    testMatch: ['<rootDir>/src/**/*.spec.ts'],
 };
 
 export default config;
