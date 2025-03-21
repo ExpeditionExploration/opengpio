@@ -1,15 +1,9 @@
 {
-    "dependencies": {
-        "bindings": "^1.5.0",
-        "debug": "^4.3.4",
-        "jest": "^29.7.0",
-        "node-addon-api": "^7.0.0"
-    },
     "name": "opengpio",
     "version": "1.0.17",
     "main": "dist/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "build:cpp": "node-gyp configure build",
         "build:ts": "rm -rf dist; tsc",
         "build:ts:watch": "npm run build:ts -- --watch",
@@ -70,9 +64,16 @@
         "eslint": "^8.52.0",
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-prettier": "^5.0.1",
+        "jest": "^29.7.0",
         "node-gyp": "^10.1.0",
         "prettier": "^3.0.3",
+        "ts-jest": "^29.2.6",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "bindings": "^1.5.0",
+        "debug": "^4.3.4",
+        "node-addon-api": "^7.0.0"
     }
 }

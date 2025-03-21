@@ -11,36 +11,50 @@ jest.mock('./Watch');
 jest.mock('./Pwm');
 
 describe('Device', () => {
-    const mockGpio: Gpio = { chip: 1, line: 2 };
-    const mockEdge: Edge = Edge.Rising;
-    const mockInputOptions: GpioInputOptions = { debounce: 10 };
-    const mockOutputOptions: GpioOutputOptions = {};
-    const mockDutyCycle = 50;
-    const mockFrequency = 1000;
-
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
-    describe.only('input()', () => {
+    describe('input()', () => {
+        const mockInputOptions: GpioInputOptions = { debounce: 10 };
+        const mockGpio: Gpio = { chip: 1, line: 2 };
+
         it('should create an Input instance when input is called', () => {
-            Device.input(mockGpio, {});
+            Device.input(mockGpio, mockInputOptions);
             expect(Input).toHaveBeenCalledWith(mockGpio, mockInputOptions);
         });
     });
 
-    it('should create an Output instance when output is called', () => {
-        Device.output(mockGpio, mockOutputOptions);
-        expect(Output).toHaveBeenCalledWith(mockGpio, mockOutputOptions);
+    describe('output()', () => {
+        const mockGpio: Gpio = { chip: 1, line: 2 };
+        const mockOutputOptions: GpioOutputOptions = {};
+
+        it('should create an Output instance when output is called', () => {
+            Device.output(mockGpio, mockOutputOptions);
+            expect(Output).toHaveBeenCalledWith(mockGpio, mockOutputOptions);
+        });
+    })
+
+    describe('watch()', () => {
+        const mockGpio: Gpio = { chip: 1, line: 2 };
+        const mockEdge: Edge = Edge.Rising;
+        const mockInputOptions: GpioInputOptions = { debounce: 10 };
+
+        it('should create a Watch instance when watch is called', () => {
+            Device.watch(mockGpio, mockEdge, mockInputOptions);
+            expect(Watch).toHaveBeenCalledWith(mockGpio, mockEdge, mockInputOptions);
+        });
     });
 
-    it('should create a Watch instance when watch is called', () => {
-        Device.watch(mockGpio, mockEdge, mockInputOptions);
-        expect(Watch).toHaveBeenCalledWith(mockGpio, mockEdge, mockInputOptions);
-    });
+    describe('pwm()', () => {
+        const mockGpio: Gpio = { chip: 1, line: 2 };
+        const mockDutyCycle = 50;
+        const mockFrequency = 1000;
+        const mockOutputOptions: GpioOutputOptions = {};
 
-    it('should create a Pwm instance when pwm is called', () => {
-        Device.pwm(mockGpio, mockDutyCycle, mockFrequency, mockOutputOptions);
-        expect(Pwm).toHaveBeenCalledWith(mockGpio, mockDutyCycle, mockFrequency, mockOutputOptions);
+        it('should create a Pwm instance when pwm is called', () => {
+            Device.pwm(mockGpio, mockDutyCycle, mockFrequency, mockOutputOptions);
+            expect(Pwm).toHaveBeenCalledWith(mockGpio, mockDutyCycle, mockFrequency, mockOutputOptions);
+        });
     });
 });
