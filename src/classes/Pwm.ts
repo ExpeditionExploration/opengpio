@@ -11,7 +11,7 @@ export class Pwm {
 
 
     constructor(gpio: Gpio, private dutyCycle: number, private frequency: number = 50, options: GpioOutputOptions = {}) {
-        this.debug('constructing pwm with', gpio, dutyCycle, frequency, options);
+        this.debug('constructing PWM with', gpio, dutyCycle, frequency, options);
         const [setDutyCycle, setFrequency, cleanup] = bindings.pwm(gpio.chip, gpio.line, dutyCycle, frequency);
         this.dutyCycleSetter = setDutyCycle;
         this.frequencySetter = setFrequency;
@@ -19,9 +19,9 @@ export class Pwm {
     }
 
     stop() {
-        this.debug('stopping pwm, cleaning up');
+        this.debug('stopping PWM, cleaning up');
         if (this.stopped) {
-            this.debug('pwm is already stopped, returning');
+            this.debug('PWM is already stopped, returning');
             return;
         }
         this.stopped = true;
@@ -29,18 +29,18 @@ export class Pwm {
     }
 
     setDutyCycle(dutyCycle: number) {
-        this.debug('setting pwm duty cycle to', dutyCycle);
+        this.debug('setting PWM duty cycle to', dutyCycle);
         if (this.stopped) {
-            throw new Error('Cannot set duty cycle on stopped pwm');
+            throw new Error('Cannot set duty cycle on stopped PWM');
         }
         this.dutyCycle = dutyCycle;
         this.dutyCycleSetter(dutyCycle);
     }
 
     setFrequency(frequency: number) {
-        this.debug('setting pwm frequency to', frequency);
+        this.debug('setting PWM frequency to', frequency);
         if (this.stopped) {
-            throw new Error('Cannot set frequency on stopped pwm');
+            throw new Error('Cannot set frequency on stopped PWM');
         }
         this.frequency = frequency;
         this.frequencySetter(frequency);
