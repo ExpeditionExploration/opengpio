@@ -17,6 +17,7 @@ export enum Bias {
     PullDown = 5
 }
 
+
 // The type of the object returned by the native module.
 export type DutyCycleSetter = (dutyCycle: number) => void;
 export type FrequencySetter = (frequency: number) => void;

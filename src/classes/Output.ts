@@ -1,29 +1,16 @@
-import debug from '../debug';
 import { bindings } from '../bindings';
+import { Gpio, PinSetter, GpioOutputOptions } from '../types';
+import { GpioDriver } from './GpioDriver';
 
-import { CleanupCallback, Gpio, PinSetter, GpioOutputOptions } from '../types';
-
-export class Output {
+export class Output extends GpioDriver {
     private setter: PinSetter = () => { };
-    private cleanup: CleanupCallback = () => { };
-    private stopped: boolean = false;
-    private debug = debug.extend(this.constructor.name);
 
     constructor(gpio: Gpio, options: GpioOutputOptions = {}) {
-        this.debug('constructing output with', gpio, options);
-        const [setter, cleanup] = bindings.output(gpio.chip, gpio.line)
-        this.setter = setter;
-        this.cleanup = cleanup;
-    }
+        const [setter, cleanup] = bindings.output(gpio.chip, gpio.line);
+        super(cleanup);
 
-    stop() {
-        this.debug('stopping output, cleaning up');
-        if (this.stopped) {
-            this.debug('output is already stopped, returning');
-            return;
-        }
-        this.stopped = true;
-        this.cleanup();
+        this.debug('constructing output with', gpio, options);
+        this.setter = setter;
     }
 
     set value(value: boolean) {

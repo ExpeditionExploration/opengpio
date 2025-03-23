@@ -1,31 +1,19 @@
 import { CleanupCallback, DutyCycleSetter, FrequencySetter, Gpio, GpioOutputOptions } from "../types";
 import { bindings } from '../bindings';
 import debug from "../debug";
+import { GpioDriver } from "./GpioDriver";
 
-export class Pwm {
+export class Pwm extends GpioDriver {
     private dutyCycleSetter: DutyCycleSetter = () => { };
     private frequencySetter: FrequencySetter = () => { };
-    private cleanup: CleanupCallback = () => { };
-    private stopped: boolean = false;
-    private debug = debug.extend(this.constructor.name);
-
 
     constructor(gpio: Gpio, private dutyCycle: number, private frequency: number = 50, options: GpioOutputOptions = {}) {
-        this.debug('constructing PWM with', gpio, dutyCycle, frequency, options);
         const [setDutyCycle, setFrequency, cleanup] = bindings.pwm(gpio.chip, gpio.line, dutyCycle, frequency);
+        super(cleanup);
+
+        this.debug('constructing PWM with', gpio, dutyCycle, frequency, options);
         this.dutyCycleSetter = setDutyCycle;
         this.frequencySetter = setFrequency;
-        this.cleanup = cleanup;
-    }
-
-    stop() {
-        this.debug('stopping PWM, cleaning up');
-        if (this.stopped) {
-            this.debug('PWM is already stopped, returning');
-            return;
-        }
-        this.stopped = true;
-        this.cleanup();
     }
 
     setDutyCycle(dutyCycle: number) {
