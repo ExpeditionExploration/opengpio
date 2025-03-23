@@ -27,6 +27,8 @@ export type Gpio = {
  * - `PullDown`: Pull-down resistor is enabled.
  */
 export enum Bias {
+    // AsIs = 1,
+    // Unknown = 2,
     Disabled = 3,
     PullUp = 4,
     PullDown = 5
