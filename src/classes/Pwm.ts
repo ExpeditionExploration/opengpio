@@ -1,6 +1,5 @@
-import { CleanupCallback, DutyCycleSetter, FrequencySetter, Gpio, GpioOutputOptions } from "../types";
+import { DutyCycleSetter, FrequencySetter, Gpio, GpioOutputOptions } from "../types";
 import { bindings } from '../bindings';
-import debug from "../debug";
 import { GpioDriver } from "./GpioDriver";
 
 export class Pwm extends GpioDriver {

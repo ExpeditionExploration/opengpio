@@ -1,7 +1,5 @@
-import { WatchCallback, Gpio, Edge, CleanupCallback, PinGetter, GpioInputOptions } from '../types';
+import { Gpio, Edge, PinGetter, GpioInputOptions } from '../types';
 import { bindings } from '../bindings';
-import { EventEmitter } from 'events';
-import debug from '../debug';
 import { GpioDriver } from './GpioDriver';
 
 export class Watch extends GpioDriver {
