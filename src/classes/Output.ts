@@ -19,8 +19,8 @@ export class Output {
     stop() {
         this.debug('stopping output, cleaning up');
         if (this.stopped) {
-            this.debug('output is stopped, throwing error');
-            throw new Error('Cannot get value from stopped output');
+            this.debug('output is already stopped, returning');
+            return;
         }
         this.stopped = true;
         this.cleanup();
@@ -28,6 +28,10 @@ export class Output {
 
     set value(value: boolean) {
         value = !!value; // Ensure value is boolean
+        if (this.stopped) {
+            this.debug('output is stopped, throwing error');
+            throw new Error('Cannot set value on stopped output');
+        }
         this.debug('setting output value to', value);
         this.setter(value);
     }

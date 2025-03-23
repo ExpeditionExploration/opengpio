@@ -17,6 +17,10 @@ export class Input {
 
     stop() {
         this.debug('stopping input, cleaning up');
+        if (this.stopped) {
+            this.debug('input is already stopped, returning');
+            return;
+        }
         this.stopped = true;
         this.cleanup();
     }

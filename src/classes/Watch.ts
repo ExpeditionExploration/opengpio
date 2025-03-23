@@ -35,6 +35,17 @@ export class Watch extends EventEmitter {
         this.cleanup = cleanup;
     }
 
+    stop() {
+        this.debug('stopping watcher, cleaning up');
+        if (this.stopped) {
+            this.debug('input is already stopped, returning');
+            return;
+        }
+        this.stopped = true;
+        this.removeAllListeners();
+        this.cleanup();
+    }
+
     get value() {
         this.debug('getting watcher value');
         if (this.stopped) {
@@ -44,12 +55,5 @@ export class Watch extends EventEmitter {
         const value = this.getter();
         this.debug('watcher value is', value);
         return value;
-    }
-
-    stop() {
-        this.debug('stopping watcher, cleaning up');
-        this.stopped = true;
-        this.removeAllListeners();
-        this.cleanup();
     }
 }

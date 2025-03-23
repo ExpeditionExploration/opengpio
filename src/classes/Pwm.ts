@@ -20,6 +20,10 @@ export class Pwm {
 
     stop() {
         this.debug('stopping pwm, cleaning up');
+        if (this.stopped) {
+            this.debug('pwm is already stopped, returning');
+            return;
+        }
         this.stopped = true;
         this.cleanup();
     }
