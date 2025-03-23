@@ -1,6 +1,6 @@
 import binding from 'bindings';
 import { type OpenGpioBindings } from './types';
-let bindings: OpenGpioBindings = {} as any;
+let bindings: OpenGpioBindings;
 
 const mocked = process.env.OPENGPIO_MOCKED === 'true';
 if (!mocked) {
@@ -8,11 +8,14 @@ if (!mocked) {
 }
 
 if (mocked) {
-    bindings.info = (() => { }) as any;
-    bindings.input = (() => { }) as any;
-    bindings.output = (() => { }) as any;
-    bindings.pwm = (() => { }) as any;
-    bindings.watch = (() => { }) as any;
+    // Mocked bindings
+    bindings = {
+        info: () => 'mocked',
+        input: () => [() => true, () => { }],
+        output: () => [() => { }, () => { }],
+        pwm: () => [() => { }, () => { }, () => { }],
+        watch: () => [() => true, () => { }],
+    }
 }
 
 export { bindings, mocked };
