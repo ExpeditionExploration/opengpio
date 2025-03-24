@@ -6,6 +6,7 @@ export class Input extends GpioDriver {
     private getter: PinGetter = () => false;
 
     constructor(gpio: Gpio, options: GpioInputOptions = {}) {
+        this.debug('constructing input with', gpio, options);
         const [getter, cleanup] = bindings.input(gpio.chip, gpio.line, options.bias ?? 0)
         super(cleanup);
 
