@@ -5,6 +5,13 @@
 #include <uv.h>
 using namespace std;
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <string.h>
+#include <errno.h>
+#include <inttypes.h>
+
 Napi::Array GpioInput(Napi::CallbackInfo const &info)
 {
     // Inputs
@@ -248,6 +255,116 @@ struct PwmContext
     ::gpiod::line_request *request;
 };
 
+
+// Define file paths for PWM sysfs interface
+#define PWMCHIP_DIR "/sys/class/pwm/pwmchip0"
+#define EXPORT_PATH PWMCHIP_DIR "/export"
+#define UNEXPORT_PATH PWMCHIP_DIR "/unexport"
+#define PWM_CHANNEL 0
+#define PWM_CHANNEL_DIR PWMCHIP_DIR "/pwm0"
+#define NCHANNELS_PATH PWMCHIP_DIR "/npwm"
+#define PERIOD_PATH PWM_CHANNEL_DIR "/period"
+#define DUTY_CYCLE_PATH PWM_CHANNEL_DIR "/duty_cycle"
+#define POLARITY_PATH PWM_CHANNEL_DIR "/polarity"
+#define ENABLE_PATH PWM_CHANNEL_DIR "/enable"
+
+char buffer[11]; // For uint32_t, 10 digits and 1 null character
+
+// Helper function to write a value to a sysfs file
+bool write_sysfs(const char * path, uint32_t value) {
+    int fd = open(path, O_WRONLY);
+    if (fd < 0)
+        return false;
+    snprintf(buffer, sizeof(buffer), "%" PRIu32, value);
+    ssize_t ret = write(fd, buffer, strlen(buffer));
+    if (ret < 0)
+        return false;
+    (void) close(fd);
+    return true;
+}
+
+// Helper function to read a value from a sysfs file
+bool read_sysfs(const char *path, uint32_t *value) {
+    if (value == NULL)
+        return false;
+    int fd = open(path, O_RDONLY);
+    if (fd < 0)
+        return false;
+    ssize_t ret = read(fd, buffer, sizeof(buffer) - 1);
+    if (ret < 0)
+        return false;
+    (void) close(fd);
+    // Safe alternative to sscanf
+    *value = 0;
+    if (ret == 0)
+        return true;
+    for (uint32_t i = ret-1, j = 1; i > 0 && buffer[i] >= '0' && buffer[i] <= '9'; i--, j *= 10)
+        *value += j*((uint32_t)(buffer[i] - '0'));
+    return true;
+}
+
+bool InitialiseHardwarePWM(uint32_t channel)
+{
+    uint32_t n_channels = 0;
+    (void)NChannelsHardwarePWM(&n_channels);
+    if (channel >= n_channels || write_sysfs(EXPORT_PATH, channel) == false)
+        return false;
+
+    // Wait a moment for the PWM channel directory to be created.
+    sleep(1);
+    return true;
+}
+
+bool DeinitialiseHardwarePWM(uint32_t channel)
+{
+    uint32_t n_channels = 0;
+    (void)NChannelsHardwarePWM(&n_channels);
+    if (channel >= n_channels || write_sysfs(UNEXPORT_PATH, channel) == false)
+        return false;
+    return true;
+}
+
+bool WriteHardwarePWM(uint32_t period, uint32_t duty_cycle)
+{
+    if (write_sysfs(PERIOD_PATH, period) == false)
+        return false;
+    if (write_sysfs(DUTY_CYCLE_PATH, duty_cycle) == false)
+        return false;
+    return true;
+}
+
+bool ReadHardwarePWM(uint32_t* period, uint32_t* duty_cycle)
+{
+    if (read_sysfs(PERIOD_PATH, period) == false)
+        return false;
+    if (read_sysfs(DUTY_CYCLE_PATH, duty_cycle) == false)
+        return false;
+    if (read_sysfs(POLARITY_PATH, polarity) == false)
+        return false;
+    return true;
+}
+
+bool NChannelsHardwarePWM(uint32_t* n_channels)
+{
+    if (read_sysfs(NCHANNELS_PATH, n_channels) == false)
+        return false;
+    return true;
+}
+
+bool EnableHardwarePWM(bool enable, int32_t polarity)
+{
+    if (enable == true)
+    {
+        if (polarity > 0)
+            (void) write_sysfs(POLARITY_PATH, "normal");
+        else if (polarity < 0)
+            (void) write_sysfs(POLARITY_PATH, "inversed");
+        else
+            // Do not write polarity when set to zero
+    }
+    return write_sysfs(ENABLE_PATH, enable);
+}
+
 void WaitBlocking(long nanoseconds)
 {
     // In a while loop continue to loop until the time has passed
@@ -309,7 +426,36 @@ Napi::Array GpioPwm(Napi::CallbackInfo const &info)
     uv_work_t *req = new uv_work_t;
     req->data = data;
 
+    InitialiseHardwarePWM(0);
+
     uv_queue_work(
+        uv_default_loop(), req,
+        [](uv_work_t *req)
+        {
+            PwmContext *data = static_cast<PwmContext *>(req->data); // Get the data
+            ::gpiod::line_request *request = data->request;
+            int line_offset = data->line_offset;
+
+            WriteHardwarePWM(1000000000 / data->frequency, data->duty_cycle);
+            EnableHardwarePWM(true, 1);
+            while (data->active)
+            {
+                WriteHardwarePWM(1000000000 / data->frequency, data->duty_cycle);
+            }
+        },
+        [](uv_work_t *req, int status)
+        {
+            PwmContext *data = static_cast<PwmContext *>(req->data);
+            data->request->release();
+
+            EnableHardwarePWM(false, 0);
+            DeinitialiseHardwarePWM(0);
+
+            delete req;
+            delete data;
+        });
+
+    /*uv_queue_work(
         uv_default_loop(), req,
         [](uv_work_t *req)
         {
@@ -341,7 +487,7 @@ Napi::Array GpioPwm(Napi::CallbackInfo const &info)
 
             delete req;
             delete data;
-        });
+        });*/
 
     Napi::Function duty_cycle_setter = Napi::Function::New(info.Env(), [data](const Napi::CallbackInfo &info)
                                                            {
