@@ -46,6 +46,7 @@ export class GpioDriver extends EventEmitter {
      *
      * @returns `true` if the driver has been stopped; otherwise, `false`.
      */
+
     get stopped(): boolean {
         this.debug(`${this.constructor.name} getting stopped value`, this.__stopped);
         return this.__stopped;
