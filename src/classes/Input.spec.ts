@@ -1,6 +1,7 @@
 import { Input } from './Input';
 import { bindings } from '../bindings';
 import { Bias, Gpio, GpioInputOptions } from '../types';
+import { DriverStopperError } from '../errors/DriverStopperError';
 
 jest.mock('../bindings', () => ({
     bindings: {
@@ -53,5 +54,13 @@ describe('Input', () => {
         const input = new Input(gpio);
 
         expect(input.value).toBe(true);
+    });
+
+    it('should throw DriverStopperError when accessing value after stop', () => {
+        const input = new Input(gpio);
+
+        input.stop();
+
+        expect(() => input.value).toThrow(DriverStopperError);
     });
 });

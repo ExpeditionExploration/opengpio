@@ -1,6 +1,7 @@
 import { Output } from './Output';
 import { bindings } from '../bindings';
 import { Gpio } from '../types';
+import { DriverStopperError } from '../errors/DriverStopperError';
 
 jest.mock('../bindings', () => ({
     bindings: {
@@ -50,5 +51,15 @@ describe('Output', () => {
         output.value = false;
 
         expect(mockSetter).toHaveBeenCalledWith(false);
+    });
+
+    it('should throw DriverStopperError if value is set after stop is invoked', () => {
+        const output = new Output(gpio);
+
+        output.stop();
+
+        expect(() => {
+            output.value = true;
+        }).toThrow(DriverStopperError);
     });
 });

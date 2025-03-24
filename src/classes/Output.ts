@@ -2,6 +2,7 @@ import debug from '../debug';
 import { bindings } from '../bindings';
 import { Gpio, PinSetter, GpioOutputOptions } from '../types';
 import { GpioDriver } from './GpioDriver';
+import { DriverStopperError } from '../errors/DriverStopperError';
 
 /**
  * Represents an output GPIO pin.
@@ -33,13 +34,13 @@ export class Output extends GpioDriver {
      * Sets the value of the output GPIO pin.
      *
      * @param value - The value to set on the GPIO pin (`true` for high, `false` for low).
-     * @throws {Error} If the output has been stopped.
+     * @throws {DriverStopperError} If the output has been stopped.
      */
     set value(value: boolean) {
         value = !!value; // Ensure value is boolean
         if (this.stopped) {
             this.debug('output is stopped, throwing error');
-            throw new Error('Cannot set value on stopped output');
+            throw new DriverStopperError('Cannot set value on stopped output');
         }
         this.debug('setting output value to', value);
         this.setter(value);

@@ -1,6 +1,7 @@
 import { DutyCycleSetter, FrequencySetter, Gpio, GpioOutputOptions } from "../types";
 import { bindings } from '../bindings';
 import { GpioDriver } from "./GpioDriver";
+import { DriverStopperError } from "../errors/DriverStopperError";
 
 /**
  * Represents a PWM (Pulse Width Modulation) GPIO pin.
@@ -42,12 +43,12 @@ export class Pwm extends GpioDriver {
      * Sets the duty cycle of the PWM pin.
      *
      * @param dutyCycle - The new duty cycle percentage (0-100).
-     * @throws {Error} If the PWM has been stopped.
+     * @throws {DriverStopperError} If the PWM has been stopped.
      */
     setDutyCycle(dutyCycle: number) {
         this.debug('setting PWM duty cycle to', dutyCycle);
         if (this.stopped) {
-            throw new Error('Cannot set duty cycle on stopped PWM');
+            throw new DriverStopperError('Cannot set duty cycle on stopped PWM');
         }
         this.dutyCycle = dutyCycle;
         this.dutyCycleSetter(dutyCycle);
@@ -57,12 +58,12 @@ export class Pwm extends GpioDriver {
      * Sets the frequency of the PWM pin.
      *
      * @param frequency - The new frequency in hertz.
-     * @throws {Error} If the PWM has been stopped.
+     * @throws {DriverStopperError} If the PWM has been stopped.
      */
     setFrequency(frequency: number) {
         this.debug('setting PWM frequency to', frequency);
         if (this.stopped) {
-            throw new Error('Cannot set frequency on stopped PWM');
+            throw new DriverStopperError('Cannot set frequency on stopped PWM');
         }
         this.frequency = frequency;
         this.frequencySetter(frequency);

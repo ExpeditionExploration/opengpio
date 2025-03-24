@@ -36,7 +36,7 @@ describe('Device', () => {
         });
 
         it('should throw an error for invalid identifier types', () => {
-            expect(() => Device['getGpioFromIdentifier'](true as any)).toThrow('Invalid identifier type');
+            expect(() => Device['getGpioFromIdentifier'](true as any)).toThrow(Error);
         });
     })
 

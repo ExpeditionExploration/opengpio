@@ -1,6 +1,7 @@
 import { Pwm } from './Pwm';
 import { bindings } from '../bindings';
 import { Gpio } from '../types';
+import { DriverStopperError } from '../errors/DriverStopperError';
 
 jest.mock('../bindings', () => ({
     bindings: {
@@ -51,7 +52,7 @@ describe('Pwm', () => {
 
         pwm.stop();
 
-        expect(() => pwm.setDutyCycle(75)).toThrow('Cannot set duty cycle on stopped pwm');
+        expect(() => pwm.setDutyCycle(75)).toThrow(DriverStopperError);
     });
 
     it('should set frequency when not stopped', () => {
@@ -67,7 +68,7 @@ describe('Pwm', () => {
 
         pwm.stop();
 
-        expect(() => pwm.setFrequency(200)).toThrow('Cannot set frequency on stopped pwm');
+        expect(() => pwm.setFrequency(200)).toThrow(DriverStopperError);
     });
 
     it('should call cleanup when stopped', () => {
