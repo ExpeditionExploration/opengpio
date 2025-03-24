@@ -8,8 +8,3 @@ console.log("Input", input)
 setInterval(() => {
     console.log('Value', input.value);
 }, 1000);
-
-process.on('beforeExit', () => {
-    console.log('Close')
-    input.stop();
-})

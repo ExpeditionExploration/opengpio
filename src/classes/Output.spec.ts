@@ -30,7 +30,6 @@ describe('Output', () => {
 
         expect(bindings.output).toHaveBeenCalledWith(gpio.chip, gpio.line);
         expect((output as any).setter).toBe(mockSetter);
-        expect((output as any).cleanup).toBe(mockCleanup);
     });
 
     it('should call cleanup when stop is invoked', () => {

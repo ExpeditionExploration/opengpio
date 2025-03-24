@@ -1,21 +1,15 @@
-import { WatchCallback, Gpio, Edge, CleanupCallback, PinGetter, GpioInputOptions } from '../types';
+import { Gpio, Edge, PinGetter, GpioInputOptions } from '../types';
 import { bindings } from '../bindings';
-import { EventEmitter } from 'events';
-import debug from '../debug';
+import { GpioDriver } from './GpioDriver';
 
-export class Watch extends EventEmitter {
+export class Watch extends GpioDriver {
     private getter: PinGetter = () => false;
-    private cleanup: CleanupCallback = () => { };
-    private stopped: boolean = false;
-    private debug = debug.extend(this.constructor.name);
 
     constructor(
         gpio: Gpio,
         private edge: Edge,
         options: GpioInputOptions = {}
     ) {
-        super();
-        this.debug('constructing watcher with', gpio, edge, options);
         const [getter, cleanup] = bindings.watch(gpio.chip, gpio.line, options.debounce ?? 0, options.bias ?? 0, (value) => {
             this.debug('watcher callback with value', value);
             if (value && (edge === Edge.Rising || edge === Edge.Both)) {
@@ -30,20 +24,10 @@ export class Watch extends EventEmitter {
                 this.emit('fall', value);
             }
         });
+        super(cleanup);
 
+        this.debug('constructing watcher with', gpio, edge, options);
         this.getter = getter;
-        this.cleanup = cleanup;
-    }
-
-    stop() {
-        this.debug('stopping watcher, cleaning up');
-        if (this.stopped) {
-            this.debug('input is already stopped, returning');
-            return;
-        }
-        this.stopped = true;
-        this.removeAllListeners();
-        this.cleanup();
     }
 
     get value() {
