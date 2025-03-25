@@ -1,6 +1,7 @@
 import { Watch } from './Watch';
 import { bindings } from '../bindings';
 import { Edge, Gpio } from '../types';
+import { DriverStoppedError } from '../errors/DriverStoppedError';
 
 jest.mock('../bindings', () => ({
     bindings: {
@@ -105,5 +106,16 @@ describe('Watch', () => {
 
         expect(mockCleanup).toHaveBeenCalled();
         expect(watch.listenerCount('event')).toBe(0);
+    });
+
+    it('should throw an error when accessing value after stopping the watcher', () => {
+        const gpio: Gpio = { chip: 0, line: 1 };
+        const edge = Edge.Both;
+
+        const watch = new Watch(gpio, edge);
+
+        watch.stop();
+
+        expect(() => watch.value).toThrow(DriverStoppedError);
     });
 });

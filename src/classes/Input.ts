@@ -1,4 +1,5 @@
 import { bindings } from '../bindings';
+import { DriverStoppedError } from '../errors/DriverStoppedError';
 import { Gpio, PinGetter, GpioInputOptions } from '../types';
 import { GpioDriver } from './GpioDriver';
 
@@ -30,14 +31,14 @@ export class Input extends GpioDriver {
     /**
      * Gets the current value of the input pin.
      *
-     * @throws {Error} If the input has been stopped.
+     * @throws {DriverStoppedError} If the input has been stopped.
      * @returns The current value of the GPIO pin (`true` for high, `false` for low).
      */
     get value() {
         this.debug('getting input value');
         if (this.stopped) {
             this.debug('input is stopped, throwing error');
-            throw new Error('Cannot get value from stopped input');
+            throw new DriverStoppedError('Cannot get value from stopped input');
         }
         const value = this.getter();
         this.debug('input value is', value);
