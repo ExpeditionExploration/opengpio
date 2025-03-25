@@ -9,8 +9,8 @@ While this library can be used on most devices, you'll need to know the chip and
 
 -   **libgpiod 2.x**
 
-    To install libgpiod 2.x you will need Debian repository mirror in your sources.
-    You can run the script below to install it.
+    To install libgpiod 2.x you will need the Debian repository mirror in your sources.
+    You can run the script below to add it.
 
     ```sh
     # Add Debian repository sid (unstable) mirror to APT sources
@@ -64,34 +64,36 @@ While this library can be used on most devices, you'll need to know the chip and
 ## Using An Official Driver
 
 Using an official device driver is simple, just import the device by its name.
+Pins can be referenced directly by bcm identifier, board pin number, or via static named mappings on the device class as seen in the examples below.
 
 ```ts
-import { NanoPi_NEO3, Edge } from 'opengpio';
+import { RaspberryPi_5B, Edge } from 'opengpio';
 
 // GPIO Output
-const output = NanoPi_NEO3.output(NanoPi_NEO3.bcm.GPIO3_B0);
-output.value = true; // Set the NanoPi_NEO3's GPIO3_B0 pin high
-output.value = false; // Set the NanoPi_NEO3's GPIO3_B0 pin low
+const output = RaspberryPi_5B.output('GPIO14');
+output.value = true; // Set the RaspberryPi 5B's GPIO14 pin high
+output.value = false; // Set the RaspberryPi 5B's GPIO14 pin low
 
 // GPIO Input
-const input = NanoPi_NEO3.input(NanoPi_NEO3.bcm.GPIO3_B0);
-console.log(input.value); // Gets the NanoPi_NEO3's GPIO3_B0 pin high/low value as true/false
+const input = RaspberryPi_5B.input(8);
+console.log(input.value); // Gets the RaspberryPi 5B's pin 8 value as true (high) / false (low)
 
 // GPIO Events
-// Creates a listener for events on the NanoPi_NEO3's GPIO3_B0 pin for both Rising and Falling edges.
+// Creates a listener for events on the RaspberryPi 5B's GPIO14 pin for both Rising and Falling edges.
 // Available Events: "change", "rise", "fall"
-const watch = NanoPi_NEO3.watch(NanoPi_NEO3.bcm.GPIO3_B0, Edge.Both);
-watch.on('change', (value) => {
+const watcher = RaspberryPi_5B.watch(RaspberryPi_5B.bcm.GPIO14, Edge.Both);
+watcher.on('change', (value) => {
     console.log(value); // Contains the high/low value as true/false
 });
 
-// Get the current value of the watch
-console.log(watch.value);
+// Get the current value of the watcher
+console.log(watcher.value);
 
 // GPIO PWM
-// Creates a 50hz (20ms) PWM on the NanoPi NEO3's GPIO3_B0 pin, with a duty cycle of 10% (2ms)
-const pwm = NanoPi_NEO3.pwm(NanoPi_NEO3.bcm.GPIO3_B0, 0.1, 50);
+// Creates a 50HZ (20ms) PWM on the RaspberryPi 5B's pin 8, with a duty cycle of 10% (2ms)
+const pwm = RaspberryPi_5B.pwm(RaspberryPi_5B.board[8], 0.1, 50);
 pwm.setDutyCycle(0.2); // Updates the duty cycle of the pwm to 20% (4ms)
+pwm.setFrequency(100); // Updates the frequency to 100HZ
 ```
 
 ## Using An Unofficial Driver
@@ -108,11 +110,11 @@ output.value = true; // Set the pin high at chip 0 line 27
 
 ## Local Development
 
-There's a good chance you are developing your software on a separate system from where it will finally run. In this case opengpio may not be compatible with your system. For example, developing on Windows or Mac for later deployment to Raspberry Pi. In these cases, you can install the library locally using `npm i --save opengpio --ignore-scripts` to prevent npm from running build when it installs. Since bindings will not exist, you will need to tell opengpio not to load the bindings when it imports the library. You can do this by setting the environment variable `OPENGPIO_MOCKED=true`. This will prevent opengpio from loading the native bindings and instead all functions will be replaced with mock functions that don't call the native bindings.
+There's a good chance you are developing your software on a separate operating system from where it will finally run. In this case opengpio may not be compatible with your system. For example, developing on Windows or Mac for later deployment to Raspberry Pi running Raspbian. In these cases, you can install the library locally using `npm i --save opengpio --ignore-scripts` to prevent npm from running build when it installs. Since bindings will not exist, you will need to tell opengpio not to load the bindings when it imports the library. You can do this by setting the environment variable `OPENGPIO_MOCKED=true`. This will prevent opengpio from loading the native bindings and instead all functions will be replaced with mock functions that don't call the native bindings.
 
 If you have a case where you need to detect if the library is running with mocked bindings you can check a parameter called "mocked", exported from the library.
 
-```js
+```ts
 import opengpio from 'opengpio';
 if (opengpio.mocked) {
     console.log('opengpio is running with mocked bindings');
