@@ -1,7 +1,7 @@
 import { Watch } from './Watch';
 import { bindings } from '../bindings';
 import { Edge, Gpio } from '../types';
-import { DriverStopperError } from '../errors/DriverStopperError';
+import { DriverStoppedError } from '../errors/DriverStoppedError';
 
 jest.mock('../bindings', () => ({
     bindings: {
@@ -116,6 +116,6 @@ describe('Watch', () => {
 
         watch.stop();
 
-        expect(() => watch.value).toThrow(DriverStopperError);
+        expect(() => watch.value).toThrow(DriverStoppedError);
     });
 });

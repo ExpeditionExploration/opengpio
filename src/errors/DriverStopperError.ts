@@ -1,1 +1,0 @@
-export class DriverStopperError extends Error { }

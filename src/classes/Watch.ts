@@ -1,7 +1,7 @@
 import { Gpio, Edge, PinGetter, GpioInputOptions } from '../types';
 import { bindings } from '../bindings';
 import { GpioDriver } from './GpioDriver';
-import { DriverStopperError } from '../errors/DriverStopperError';
+import { DriverStoppedError } from '../errors/DriverStoppedError';
 
 /**
  * Represents a GPIO watcher that monitors edge changes (rising, falling, or both).
@@ -56,14 +56,14 @@ export class Watch extends GpioDriver {
     /**
      * Gets the current value of the GPIO pin being watched.
      *
-     * @throws {DriverStopperError} If the watcher has been stopped.
+     * @throws {DriverStoppedError} If the watcher has been stopped.
      * @returns The current value of the GPIO pin (`true` for high, `false` for low).
      */
     get value() {
         this.debug('getting watcher value');
         if (this.stopped) {
             this.debug('watcher is stopped, throwing error');
-            throw new DriverStopperError('Cannot get value from stopped watcher');
+            throw new DriverStoppedError('Cannot get value from stopped watcher');
         }
         const value = this.getter();
         this.debug('watcher value is', value);
