@@ -1,6 +1,6 @@
 {
     "name": "opengpio",
-    "version": "1.0.17",
+    "version": "2.0.0",
     "main": "dist/index.js",
     "scripts": {
         "test": "jest",
@@ -46,6 +46,7 @@
         "watch",
         "libgpio",
         "libgpiod",
+        "gpiod",
         "2.1"
     ],
     "author": "",

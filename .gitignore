@@ -1,5 +1,4 @@
 node_modules
 build
-dist
 libgpiod-2.1*
 package-lock.json
