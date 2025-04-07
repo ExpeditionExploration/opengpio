@@ -68,3 +68,4 @@ export declare class Device {
      */
     private static getGpioFromIdentifier;
 }
+//# sourceMappingURL=Device.d.ts.map

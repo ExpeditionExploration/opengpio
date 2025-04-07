@@ -110,3 +110,4 @@ RaspberryPi_Zero2W.bcm = {
     GPIO27: _a.board[13]
 };
 exports.default = RaspberryPi_Zero2W;
+//# sourceMappingURL=RaspberryPi_Zero2W.js.map

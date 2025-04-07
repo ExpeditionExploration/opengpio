@@ -18,3 +18,4 @@ __exportStar(require("./bindings"), exports);
 __exportStar(require("./types"), exports);
 __exportStar(require("./devices"), exports);
 __exportStar(require("./classes"), exports);
+//# sourceMappingURL=index.js.map

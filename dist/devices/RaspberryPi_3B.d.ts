@@ -385,3 +385,4 @@ export default class RaspberryPi_3B extends Device {
         };
     };
 }
+//# sourceMappingURL=RaspberryPi_3B.d.ts.map

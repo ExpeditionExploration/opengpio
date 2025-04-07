@@ -385,3 +385,4 @@ export default class RaspberryPi_ZeroW extends Device {
         };
     };
 }
+//# sourceMappingURL=RaspberryPi_ZeroW.d.ts.map

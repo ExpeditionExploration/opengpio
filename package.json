@@ -1,7 +1,8 @@
 {
     "name": "opengpio",
     "version": "2.0.0",
-    "main": "dist/index.js",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "scripts": {
         "test": "jest",
         "build:cpp": "node-gyp configure build",
@@ -10,7 +11,10 @@
         "start": "ts-node src/index.ts",
         "lint": "eslint . --ext .ts",
         "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-        "bcmToChip": "node utils/bcmToChip.js"
+        "bcmToChip": "node utils/bcmToChip.js",
+        "build:cjs": "tsc",
+        "build:esm": "tsc --project tsconfig.esm.json",
+        "build": "npm run build:cjs && npm run build:esm"
     },
     "repository": {
         "type": "git",

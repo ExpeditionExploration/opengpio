@@ -11,3 +11,4 @@ var Pwm_1 = require("./Pwm");
 Object.defineProperty(exports, "Pwm", { enumerable: true, get: function () { return Pwm_1.Pwm; } });
 var Watch_1 = require("./Watch");
 Object.defineProperty(exports, "Watch", { enumerable: true, get: function () { return Watch_1.Watch; } });
+//# sourceMappingURL=index.js.map

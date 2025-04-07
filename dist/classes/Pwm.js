@@ -70,3 +70,4 @@ class Pwm extends GpioDriver_1.GpioDriver {
     }
 }
 exports.Pwm = Pwm;
+//# sourceMappingURL=Pwm.js.map

@@ -10,3 +10,4 @@ export { default as RaspberryPi_Zero2W } from './RaspberryPi_Zero2W';
 export { default as OrangePi_5 } from './OrangePi_5';
 export { default as Radxa_Rock_S0 } from './Radxa_Rock_S0';
 export { default as Default } from './Default';
+//# sourceMappingURL=index.d.ts.map

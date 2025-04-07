@@ -38,3 +38,4 @@ export declare class GpioDriver extends EventEmitter {
      */
     stop(): void;
 }
+//# sourceMappingURL=GpioDriver.d.ts.map

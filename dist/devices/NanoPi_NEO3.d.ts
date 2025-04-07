@@ -125,3 +125,4 @@ export default class NanoPi_NEO3 extends Device {
         };
     };
 }
+//# sourceMappingURL=NanoPi_NEO3.d.ts.map

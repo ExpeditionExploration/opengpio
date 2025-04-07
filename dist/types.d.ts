@@ -115,3 +115,4 @@ export type GpioInputOptions = {
  * Configuration options for a GPIO output pin.
  */
 export type GpioOutputOptions = {};
+//# sourceMappingURL=types.d.ts.map

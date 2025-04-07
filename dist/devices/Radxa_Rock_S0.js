@@ -62,3 +62,4 @@ Radxa_Rock_S0.bcm = {
     PIN_29: _a.board[29],
 };
 exports.default = Radxa_Rock_S0;
+//# sourceMappingURL=Radxa_Rock_S0.js.map

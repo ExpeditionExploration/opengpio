@@ -293,3 +293,4 @@ export default class OrangePi_5 extends Device {
         };
     };
 }
+//# sourceMappingURL=OrangePi_5.d.ts.map

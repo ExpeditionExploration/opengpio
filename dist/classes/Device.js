@@ -110,3 +110,4 @@ Device.board = {};
  * A mapping of BCM pin names to GPIO objects.
  */
 Device.bcm = {};
+//# sourceMappingURL=Device.js.map

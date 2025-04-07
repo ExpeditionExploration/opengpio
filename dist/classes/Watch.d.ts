@@ -28,3 +28,4 @@ export declare class Watch extends GpioDriver {
      */
     get value(): boolean;
 }
+//# sourceMappingURL=Watch.d.ts.map
