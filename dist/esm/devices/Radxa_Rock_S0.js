@@ -1,8 +1,6 @@
-"use strict";
 var _a;
-Object.defineProperty(exports, "__esModule", { value: true });
-const Device_1 = require("../classes/Device");
-class Radxa_Rock_S0 extends Device_1.Device {
+import { Device } from '../classes/Device';
+export class Radxa_Rock_S0 extends Device {
 }
 _a = Radxa_Rock_S0;
 Radxa_Rock_S0.board = {
@@ -61,4 +59,4 @@ Radxa_Rock_S0.bcm = {
     PIN_18: _a.board[18],
     PIN_29: _a.board[29],
 };
-exports.default = Radxa_Rock_S0;
+//# sourceMappingURL=Radxa_Rock_S0.js.map

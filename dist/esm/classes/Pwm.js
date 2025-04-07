@@ -1,14 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Pwm = void 0;
-const bindings_1 = require("../bindings");
-const GpioDriver_1 = require("./GpioDriver");
-const DriverStoppedError_1 = require("../errors/DriverStoppedError");
+import { bindings } from '../bindings';
+import { GpioDriver } from "./GpioDriver";
+import { DriverStoppedError } from "../errors/DriverStoppedError";
 /**
  * Represents a PWM (Pulse Width Modulation) GPIO pin.
  * Extends the `GpioDriver` class to provide PWM-specific functionality.
  */
-class Pwm extends GpioDriver_1.GpioDriver {
+export class Pwm extends GpioDriver {
     /**
      * Constructs a `Pwm` instance.
      *
@@ -18,7 +15,7 @@ class Pwm extends GpioDriver_1.GpioDriver {
      * @param options - Configuration options for the PWM pin.
      */
     constructor(gpio, dutyCycle, frequency = 50, options = {}) {
-        const [setDutyCycle, setFrequency, cleanup] = bindings_1.bindings.pwm(gpio.chip, gpio.line, dutyCycle, frequency);
+        const [setDutyCycle, setFrequency, cleanup] = bindings.pwm(gpio.chip, gpio.line, dutyCycle, frequency);
         super(cleanup);
         this.dutyCycle = dutyCycle;
         this.frequency = frequency;
@@ -48,7 +45,7 @@ class Pwm extends GpioDriver_1.GpioDriver {
         this.debug('setting PWM duty cycle to', dutyCycle);
         if (this.stopped) {
             this.debug('pwm is stopped, throwing error');
-            throw new DriverStoppedError_1.DriverStoppedError('Cannot set duty cycle on stopped PWM');
+            throw new DriverStoppedError('Cannot set duty cycle on stopped PWM');
         }
         this.dutyCycle = dutyCycle;
         this.dutyCycleSetter(dutyCycle);
@@ -63,10 +60,10 @@ class Pwm extends GpioDriver_1.GpioDriver {
         this.debug('setting PWM frequency to', frequency);
         if (this.stopped) {
             this.debug('pwm is stopped, throwing error');
-            throw new DriverStoppedError_1.DriverStoppedError('Cannot set frequency on stopped PWM');
+            throw new DriverStoppedError('Cannot set frequency on stopped PWM');
         }
         this.frequency = frequency;
         this.frequencySetter(frequency);
     }
 }
-exports.Pwm = Pwm;
+//# sourceMappingURL=Pwm.js.map

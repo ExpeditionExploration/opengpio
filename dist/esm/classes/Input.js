@@ -1,14 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Input = void 0;
-const bindings_1 = require("../bindings");
-const DriverStoppedError_1 = require("../errors/DriverStoppedError");
-const GpioDriver_1 = require("./GpioDriver");
+import { bindings } from '../bindings';
+import { DriverStoppedError } from '../errors/DriverStoppedError';
+import { GpioDriver } from './GpioDriver';
 /**
  * Represents an input GPIO pin.
  * Extends the `GpioDriver` class to provide input-specific functionality.
  */
-class Input extends GpioDriver_1.GpioDriver {
+export class Input extends GpioDriver {
     /**
      * Constructs an `Input` instance.
      *
@@ -17,7 +14,7 @@ class Input extends GpioDriver_1.GpioDriver {
      */
     constructor(gpio, options = {}) {
         var _a;
-        const [getter, cleanup] = bindings_1.bindings.input(gpio.chip, gpio.line, (_a = options.bias) !== null && _a !== void 0 ? _a : 0);
+        const [getter, cleanup] = bindings.input(gpio.chip, gpio.line, (_a = options.bias) !== null && _a !== void 0 ? _a : 0);
         super(cleanup);
         /**
          * A function to retrieve the current value of the GPIO pin.
@@ -37,11 +34,11 @@ class Input extends GpioDriver_1.GpioDriver {
         this.debug('getting input value');
         if (this.stopped) {
             this.debug('input is stopped, throwing error');
-            throw new DriverStoppedError_1.DriverStoppedError('Cannot get value from stopped input');
+            throw new DriverStoppedError('Cannot get value from stopped input');
         }
         const value = this.getter();
         this.debug('input value is', value);
         return value;
     }
 }
-exports.Input = Input;
+//# sourceMappingURL=Input.js.map

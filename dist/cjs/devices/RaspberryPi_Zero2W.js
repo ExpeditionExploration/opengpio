@@ -1,9 +1,11 @@
 "use strict";
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RaspberryPi_Zero2W = void 0;
 const Device_1 = require("../classes/Device");
 class RaspberryPi_Zero2W extends Device_1.Device {
 }
+exports.RaspberryPi_Zero2W = RaspberryPi_Zero2W;
 _a = RaspberryPi_Zero2W;
 //as of 
 //- https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-reduced-schematics.pdf
@@ -109,4 +111,4 @@ RaspberryPi_Zero2W.bcm = {
     GPIO26: _a.board[37],
     GPIO27: _a.board[13]
 };
-exports.default = RaspberryPi_Zero2W;
+//# sourceMappingURL=RaspberryPi_Zero2W.js.map

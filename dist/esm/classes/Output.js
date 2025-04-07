@@ -1,14 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Output = void 0;
-const bindings_1 = require("../bindings");
-const GpioDriver_1 = require("./GpioDriver");
-const DriverStoppedError_1 = require("../errors/DriverStoppedError");
+import { bindings } from '../bindings';
+import { GpioDriver } from './GpioDriver';
+import { DriverStoppedError } from '../errors/DriverStoppedError';
 /**
  * Represents an output GPIO pin.
  * Extends the `GpioDriver` class to provide output-specific functionality.
  */
-class Output extends GpioDriver_1.GpioDriver {
+export class Output extends GpioDriver {
     /**
      * Constructs an `Output` instance.
      *
@@ -16,7 +13,7 @@ class Output extends GpioDriver_1.GpioDriver {
      * @param options - Configuration options for the output pin.
      */
     constructor(gpio, options = {}) {
-        const [setter, cleanup] = bindings_1.bindings.output(gpio.chip, gpio.line);
+        const [setter, cleanup] = bindings.output(gpio.chip, gpio.line);
         super(cleanup);
         /**
          * A function to set the value of the GPIO pin.
@@ -37,10 +34,10 @@ class Output extends GpioDriver_1.GpioDriver {
         value = !!value; // Ensure value is boolean
         if (this.stopped) {
             this.debug('output is stopped, throwing error');
-            throw new DriverStoppedError_1.DriverStoppedError('Cannot set value on stopped output');
+            throw new DriverStoppedError('Cannot set value on stopped output');
         }
         this.debug('setting output value to', value);
         this.setter(value);
     }
 }
-exports.Output = Output;
+//# sourceMappingURL=Output.js.map

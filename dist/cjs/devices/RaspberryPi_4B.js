@@ -1,9 +1,11 @@
 "use strict";
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RaspberryPi_4B = void 0;
 const Device_1 = require("../classes/Device");
 class RaspberryPi_4B extends Device_1.Device {
 }
+exports.RaspberryPi_4B = RaspberryPi_4B;
 _a = RaspberryPi_4B;
 //as of 
 //- https://datasheets.raspberrypi.com/rpi4/raspberry-pi-4-reduced-schematics.pdf
@@ -76,4 +78,4 @@ RaspberryPi_4B.bcm = {
     GPIO26: _a.board[37],
     GPIO27: _a.board[13]
 };
-exports.default = RaspberryPi_4B;
+//# sourceMappingURL=RaspberryPi_4B.js.map

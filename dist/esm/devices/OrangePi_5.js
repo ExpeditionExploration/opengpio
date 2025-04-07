@@ -1,9 +1,7 @@
-"use strict";
 var _a;
-Object.defineProperty(exports, "__esModule", { value: true });
-const Device_1 = require("../classes/Device");
+import { Device } from '../classes/Device';
 // Schematics: https://drive.google.com/drive/folders/1eG4tuJnv7Jd4BzQTmjXZhBjIs2sG2z4L
-class OrangePi_5 extends Device_1.Device {
+export class OrangePi_5 extends Device {
 }
 _a = OrangePi_5;
 OrangePi_5.board = {
@@ -84,4 +82,4 @@ OrangePi_5.bcm = {
     GPIO27: _a.board[13],
     GPIO1_C6: _a.board[13]
 };
-exports.default = OrangePi_5;
+//# sourceMappingURL=OrangePi_5.js.map

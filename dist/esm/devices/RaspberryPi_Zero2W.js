@@ -1,8 +1,6 @@
-"use strict";
 var _a;
-Object.defineProperty(exports, "__esModule", { value: true });
-const Device_1 = require("../classes/Device");
-class RaspberryPi_Zero2W extends Device_1.Device {
+import { Device } from '../classes/Device';
+export class RaspberryPi_Zero2W extends Device {
 }
 _a = RaspberryPi_Zero2W;
 //as of 
@@ -109,4 +107,4 @@ RaspberryPi_Zero2W.bcm = {
     GPIO26: _a.board[37],
     GPIO27: _a.board[13]
 };
-exports.default = RaspberryPi_Zero2W;
+//# sourceMappingURL=RaspberryPi_Zero2W.js.map

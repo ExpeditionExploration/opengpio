@@ -1,14 +1,8 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.GpioDriver = void 0;
-const events_1 = __importDefault(require("events"));
-const debug_1 = __importDefault(require("../debug"));
+import EventEmitter from "events";
+import debug from "../debug";
 const drivers = new Set();
 process.on('beforeExit', () => {
-    (0, debug_1.default)('Cleaning up all drivers');
+    debug('Cleaning up all drivers');
     drivers.forEach((driver) => driver.stop());
 });
 /**
@@ -16,7 +10,7 @@ process.on('beforeExit', () => {
  * Extends `EventEmitter` to provide event-driven functionality.
  * Automatically registers drivers for cleanup before the process exits.
  */
-class GpioDriver extends events_1.default {
+export class GpioDriver extends EventEmitter {
     /**
      * Constructs a new `GpioDriver` instance.
      *
@@ -40,7 +34,7 @@ class GpioDriver extends events_1.default {
      */
     get debug() {
         // Need to use a getter here to get the logger with the correct subclass name.
-        return debug_1.default.extend(this.constructor.name);
+        return debug.extend(this.constructor.name);
     }
     /**
      * Indicates whether the driver has been stopped.
@@ -65,4 +59,4 @@ class GpioDriver extends events_1.default {
         this.__cleanup();
     }
 }
-exports.GpioDriver = GpioDriver;
+//# sourceMappingURL=GpioDriver.js.map

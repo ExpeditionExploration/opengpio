@@ -1,9 +1,11 @@
 "use strict";
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NanoPi_NEO3 = void 0;
 const Device_1 = require("../classes/Device");
 class NanoPi_NEO3 extends Device_1.Device {
 }
+exports.NanoPi_NEO3 = NanoPi_NEO3;
 _a = NanoPi_NEO3;
 NanoPi_NEO3.board = {
     27: { chip: 0, line: 27 },
@@ -39,4 +41,4 @@ NanoPi_NEO3.bcm = {
     GPIO3_A7: _a.board[103],
     GPIO3_B0: _a.board[104]
 };
-exports.default = NanoPi_NEO3;
+//# sourceMappingURL=NanoPi_NEO3.js.map

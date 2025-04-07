@@ -1,27 +1,21 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Device = void 0;
-const types_1 = require("../types");
-const Pwm_1 = require("./Pwm");
-const Watch_1 = require("./Watch");
-const Input_1 = require("./Input");
-const Output_1 = require("./Output");
-const debug_1 = __importDefault(require("../debug"));
+import { Edge } from '../types';
+import { Pwm } from './Pwm';
+import { Watch } from './Watch';
+import { Input } from './Input';
+import { Output } from './Output';
+import debug from '../debug';
 /**
  * Represents a base class for managing GPIO devices.
  * Provides static methods for creating and managing GPIO inputs, outputs, watchers, and PWM signals.
  */
-class Device {
+export class Device {
     /**
      * Retrieves a debug logger scoped to the current class name.
      * @protected
      * @returns A debug logger instance.
      */
     static get debug() {
-        return debug_1.default.extend(this.name);
+        return debug.extend(this.name);
     }
     /**
      * Creates an input GPIO instance.
@@ -33,7 +27,7 @@ class Device {
     static input(gpio, options = {}) {
         const resolvedGpio = this.getGpioFromIdentifier(gpio);
         this.debug('starting input with', resolvedGpio, options);
-        return new Input_1.Input(resolvedGpio, options);
+        return new Input(resolvedGpio, options);
     }
     /**
      * Creates an output GPIO instance.
@@ -45,7 +39,7 @@ class Device {
     static output(gpio, options = {}) {
         const resolvedGpio = this.getGpioFromIdentifier(gpio);
         this.debug('starting output with', resolvedGpio, options);
-        return new Output_1.Output(resolvedGpio, options);
+        return new Output(resolvedGpio, options);
     }
     /**
      * Creates a watcher for a GPIO pin to monitor edge changes.
@@ -57,8 +51,8 @@ class Device {
      */
     static watch(gpio, edge, options = {}) {
         const resolvedGpio = this.getGpioFromIdentifier(gpio);
-        this.debug(`starting watcher on edge "${types_1.Edge[edge]}" with`, resolvedGpio, options);
-        return new Watch_1.Watch(resolvedGpio, edge, options);
+        this.debug(`starting watcher on edge "${Edge[edge]}" with`, resolvedGpio, options);
+        return new Watch(resolvedGpio, edge, options);
     }
     /**
      * Creates a PWM (Pulse Width Modulation) instance for a GPIO pin.
@@ -72,7 +66,7 @@ class Device {
     static pwm(gpio, dutyCycle, frequency, options = {}) {
         const resolvedGpio = this.getGpioFromIdentifier(gpio);
         this.debug(`starting PWM with duty cycle ${dutyCycle} and frequency ${frequency}Hz with`, resolvedGpio, options);
-        return new Pwm_1.Pwm(resolvedGpio, dutyCycle, frequency, options);
+        return new Pwm(resolvedGpio, dutyCycle, frequency, options);
     }
     /**
      * Resolves a GPIO identifier to a `Gpio` object.
@@ -101,7 +95,6 @@ class Device {
         throw new Error('Invalid identifier type');
     }
 }
-exports.Device = Device;
 /**
  * A mapping of board pin numbers to GPIO objects.
  */
@@ -110,3 +103,4 @@ Device.board = {};
  * A mapping of BCM pin names to GPIO objects.
  */
 Device.bcm = {};
+//# sourceMappingURL=Device.js.map
