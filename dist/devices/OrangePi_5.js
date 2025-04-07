@@ -85,3 +85,4 @@ OrangePi_5.bcm = {
     GPIO1_C6: _a.board[13]
 };
 exports.default = OrangePi_5;
+//# sourceMappingURL=OrangePi_5.js.map

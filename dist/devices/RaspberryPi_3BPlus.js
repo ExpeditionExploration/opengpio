@@ -110,3 +110,4 @@ RaspberryPi_3BPlus.bcm = {
     GPIO27: _a.board[13]
 };
 exports.default = RaspberryPi_3BPlus;
+//# sourceMappingURL=RaspberryPi_3BPlus.js.map

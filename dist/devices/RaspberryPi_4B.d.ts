@@ -253,3 +253,4 @@ export default class RaspberryPi_4B extends Device {
         };
     };
 }
+//# sourceMappingURL=RaspberryPi_4B.d.ts.map

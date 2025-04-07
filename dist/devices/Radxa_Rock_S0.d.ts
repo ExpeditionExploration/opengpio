@@ -213,3 +213,4 @@ export default class Radxa_Rock_S0 extends Device {
         };
     };
 }
+//# sourceMappingURL=Radxa_Rock_S0.d.ts.map

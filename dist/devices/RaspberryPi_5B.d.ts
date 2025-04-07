@@ -253,3 +253,4 @@ export default class RaspberryPi_5B extends Device {
         };
     };
 }
+//# sourceMappingURL=RaspberryPi_5B.d.ts.map

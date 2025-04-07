@@ -25,3 +25,4 @@ export declare class Input extends GpioDriver {
      */
     get value(): boolean;
 }
+//# sourceMappingURL=Input.d.ts.map

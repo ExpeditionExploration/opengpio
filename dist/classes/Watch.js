@@ -63,3 +63,4 @@ class Watch extends GpioDriver_1.GpioDriver {
     }
 }
 exports.Watch = Watch;
+//# sourceMappingURL=Watch.js.map

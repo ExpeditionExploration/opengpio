@@ -40,3 +40,4 @@ NanoPi_NEO3.bcm = {
     GPIO3_B0: _a.board[104]
 };
 exports.default = NanoPi_NEO3;
+//# sourceMappingURL=NanoPi_NEO3.js.map

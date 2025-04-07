@@ -25,3 +25,4 @@ else {
         watch: () => [() => true, () => { }],
     };
 }
+//# sourceMappingURL=bindings.js.map

@@ -43,3 +43,4 @@ export declare class Pwm extends GpioDriver {
      */
     setFrequency(frequency: number): void;
 }
+//# sourceMappingURL=Pwm.d.ts.map

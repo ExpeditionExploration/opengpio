@@ -76,3 +76,4 @@ RaspberryPi_5B.bcm = {
     GPIO27: _a.board[13]
 };
 exports.default = RaspberryPi_5B;
+//# sourceMappingURL=RaspberryPi_5B.js.map

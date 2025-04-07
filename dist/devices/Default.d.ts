@@ -13,3 +13,4 @@ export default class Default extends Device {
         };
     };
 }
+//# sourceMappingURL=Default.d.ts.map

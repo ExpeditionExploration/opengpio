@@ -12,3 +12,4 @@ Default.bcm = {
     GPIO0_0: _a.board[0]
 };
 exports.default = Default;
+//# sourceMappingURL=Default.js.map
