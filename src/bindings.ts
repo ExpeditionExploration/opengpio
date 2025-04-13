@@ -1,6 +1,6 @@
 import binding from 'bindings';
 import { type OpenGpioBindings } from './types';
-import { default as debugLogger } from './debug';
+import { debug as debugLogger } from './debug';
 const debug = debugLogger.extend('bindings');
 
 let bindings: OpenGpioBindings;

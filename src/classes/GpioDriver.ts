@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import debug from "../debug";
+import { debug } from "../debug";
 import { CleanupCallback } from "../types";
 
 const drivers: Set<GpioDriver> = new Set();
@@ -36,9 +36,14 @@ export class GpioDriver extends EventEmitter {
      * @protected
      * @returns A debug logger instance.
      */
+    private _debug: typeof debug | undefined = undefined;
     protected get debug() {
-        // Need to use a getter here to get the logger with the correct subclass name.
-        return debug.extend(this.constructor.name);
+        if (!this._debug) {
+            // This is done so that that name is the name of the class that extends Device.
+            this._debug = debug.extend(this.constructor.name);
+        }
+
+        return this._debug;
     }
 
     /**

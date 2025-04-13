@@ -3,7 +3,7 @@ import { Pwm } from './Pwm';
 import { Watch } from './Watch';
 import { Input } from './Input';
 import { Output } from './Output';
-import debug from '../debug';
+import { debug } from '../debug';
 
 /**
  * Represents a base class for managing GPIO devices.
@@ -25,8 +25,14 @@ export class Device {
      * @protected
      * @returns A debug logger instance.
      */
+    private static _debug: typeof debug | undefined = undefined;
     protected static get debug() {
-        return debug.extend(this.name);
+        if (!this._debug) {
+            // This is done so that that name is the name of the class that extends Device.
+            this._debug = debug.extend(this.name);
+        }
+
+        return this._debug;
     }
 
     /**

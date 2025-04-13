@@ -1,2 +1,2 @@
-import debug from "debug";
-export default debug("opengpio");
+import debugLogger from "debug";
+export const debug = debugLogger("opengpio");

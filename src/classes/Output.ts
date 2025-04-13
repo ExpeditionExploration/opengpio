@@ -1,4 +1,3 @@
-import debug from '../debug';
 import { bindings } from '../bindings';
 import { Gpio, PinSetter, GpioOutputOptions } from '../types';
 import { GpioDriver } from './GpioDriver';
