@@ -1,7 +1,4 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Device = void 0;
 const types_1 = require("../types");
@@ -9,19 +6,18 @@ const Pwm_1 = require("./Pwm");
 const Watch_1 = require("./Watch");
 const Input_1 = require("./Input");
 const Output_1 = require("./Output");
-const debug_1 = __importDefault(require("../debug"));
+const debug_1 = require("../debug");
 /**
  * Represents a base class for managing GPIO devices.
  * Provides static methods for creating and managing GPIO inputs, outputs, watchers, and PWM signals.
  */
 class Device {
-    /**
-     * Retrieves a debug logger scoped to the current class name.
-     * @protected
-     * @returns A debug logger instance.
-     */
     static get debug() {
-        return debug_1.default.extend(this.name);
+        if (!this._debug) {
+            // This is done so that that name is the name of the class that extends Device.
+            this._debug = debug_1.debug.extend(this.name);
+        }
+        return this._debug;
     }
     /**
      * Creates an input GPIO instance.
@@ -110,4 +106,10 @@ Device.board = {};
  * A mapping of BCM pin names to GPIO objects.
  */
 Device.bcm = {};
+/**
+ * Retrieves a debug logger scoped to the current class name.
+ * @protected
+ * @returns A debug logger instance.
+ */
+Device._debug = undefined;
 //# sourceMappingURL=Device.js.map

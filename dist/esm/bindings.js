@@ -1,5 +1,5 @@
 import binding from 'bindings';
-import { default as debugLogger } from './debug';
+import { debug as debugLogger } from './debug';
 const debug = debugLogger.extend('bindings');
 let bindings;
 const mocked = process.env.OPENGPIO_MOCKED === 'true';

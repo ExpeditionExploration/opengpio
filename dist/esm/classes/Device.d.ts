@@ -22,6 +22,7 @@ export declare class Device {
      * @protected
      * @returns A debug logger instance.
      */
+    private static _debug;
     protected static get debug(): import("debug").Debugger;
     /**
      * Creates an input GPIO instance.

@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GpioDriver = void 0;
 const events_1 = __importDefault(require("events"));
-const debug_1 = __importDefault(require("../debug"));
+const debug_1 = require("../debug");
 const drivers = new Set();
 process.on('beforeExit', () => {
-    (0, debug_1.default)('Cleaning up all drivers');
+    (0, debug_1.debug)('Cleaning up all drivers');
     drivers.forEach((driver) => driver.stop());
 });
 /**
@@ -30,17 +30,21 @@ class GpioDriver extends events_1.default {
          * @private
          */
         this.__stopped = false;
+        /**
+         * Retrieves a debug logger scoped to the current class name.
+         * @protected
+         * @returns A debug logger instance.
+         */
+        this._debug = undefined;
         this.debug(`registering new ${this.constructor.name} gpio driver`);
         drivers.add(this);
     }
-    /**
-     * Retrieves a debug logger scoped to the current class name.
-     * @protected
-     * @returns A debug logger instance.
-     */
     get debug() {
-        // Need to use a getter here to get the logger with the correct subclass name.
-        return debug_1.default.extend(this.constructor.name);
+        if (!this._debug) {
+            // This is done so that that name is the name of the class that extends Device.
+            this._debug = debug_1.debug.extend(this.constructor.name);
+        }
+        return this._debug;
     }
     /**
      * Indicates whether the driver has been stopped.

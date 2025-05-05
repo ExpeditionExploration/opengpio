@@ -1,4 +1,3 @@
-import debug from "debug";
-declare const _default: debug.Debugger;
-export default _default;
+import debugLogger from "debug";
+export declare const debug: debugLogger.Debugger;
 //# sourceMappingURL=debug.d.ts.map

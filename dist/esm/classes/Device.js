@@ -3,19 +3,18 @@ import { Pwm } from './Pwm';
 import { Watch } from './Watch';
 import { Input } from './Input';
 import { Output } from './Output';
-import debug from '../debug';
+import { debug } from '../debug';
 /**
  * Represents a base class for managing GPIO devices.
  * Provides static methods for creating and managing GPIO inputs, outputs, watchers, and PWM signals.
  */
 export class Device {
-    /**
-     * Retrieves a debug logger scoped to the current class name.
-     * @protected
-     * @returns A debug logger instance.
-     */
     static get debug() {
-        return debug.extend(this.name);
+        if (!this._debug) {
+            // This is done so that that name is the name of the class that extends Device.
+            this._debug = debug.extend(this.name);
+        }
+        return this._debug;
     }
     /**
      * Creates an input GPIO instance.
@@ -103,4 +102,10 @@ Device.board = {};
  * A mapping of BCM pin names to GPIO objects.
  */
 Device.bcm = {};
+/**
+ * Retrieves a debug logger scoped to the current class name.
+ * @protected
+ * @returns A debug logger instance.
+ */
+Device._debug = undefined;
 //# sourceMappingURL=Device.js.map

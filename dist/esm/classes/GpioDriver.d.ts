@@ -25,6 +25,7 @@ export declare class GpioDriver extends EventEmitter {
      * @protected
      * @returns A debug logger instance.
      */
+    private _debug;
     protected get debug(): import("debug").Debugger;
     /**
      * Indicates whether the driver has been stopped.

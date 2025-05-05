@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import debug from "../debug";
+import { debug } from "../debug";
 const drivers = new Set();
 process.on('beforeExit', () => {
     debug('Cleaning up all drivers');
@@ -24,17 +24,21 @@ export class GpioDriver extends EventEmitter {
          * @private
          */
         this.__stopped = false;
+        /**
+         * Retrieves a debug logger scoped to the current class name.
+         * @protected
+         * @returns A debug logger instance.
+         */
+        this._debug = undefined;
         this.debug(`registering new ${this.constructor.name} gpio driver`);
         drivers.add(this);
     }
-    /**
-     * Retrieves a debug logger scoped to the current class name.
-     * @protected
-     * @returns A debug logger instance.
-     */
     get debug() {
-        // Need to use a getter here to get the logger with the correct subclass name.
-        return debug.extend(this.constructor.name);
+        if (!this._debug) {
+            // This is done so that that name is the name of the class that extends Device.
+            this._debug = debug.extend(this.constructor.name);
+        }
+        return this._debug;
     }
     /**
      * Indicates whether the driver has been stopped.
