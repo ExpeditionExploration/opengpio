@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist/esm", // Output directory for ESM files
+        "module": "ESNext", // Use ESNext for ESM compatibility
+        "moduleResolution": "bundler",
+        "target": "ES2017", // Modern JavaScript features
+        "esModuleInterop": true, // Ensure compatibility with CommonJS modules
+        "allowSyntheticDefaultImports": true, // Allow default imports for CommonJS modules
+        "preserveSymlinks": true // Preserve symlinks for module resolution
+    }
+}

@@ -1,6 +1,6 @@
 import { Device } from '../classes/Device';
 
-export default class Radxa_Rock_S0 extends Device {
+export class Radxa_Rock_S0 extends Device {
     static board = {
         3: { chip: 0, line: 11 },
         5: { chip: 0, line: 12 },
