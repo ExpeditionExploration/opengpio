@@ -33,6 +33,10 @@ While this library can be used on most devices, you'll need to know the chip and
     sudo rm /etc/apt/trusted.gpg.d/debian-archive-keyring.gpg
     ```
 
+    **Manual**
+    Alternatively, manually build libgpiod 2.2.1 from source.
+    First, uninstall libgpiod 1.x by `sudo apt remove libgpiod-dev gpiod libgpiod2`. Then, [build from source](https://libgpiod.readthedocs.io/en/latest/building.html#building). Finally, run `./autogen.sh --enable-bindings-cxx` for Node-API bindings.
+
     **Debugging**
     If after installing libgpiod you encounter issues loading libgpiod with errors like: `Error: libgpiodcxx.so.2: cannot open shared object file: No such file or directory`, you may need to update the system library cache. You can do this by running: `sudo ldconfig`
 
