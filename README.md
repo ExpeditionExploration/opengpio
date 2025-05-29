@@ -26,7 +26,7 @@ While this library can be used on most devices, you'll need to know the chip and
     sudo apt update
 
     # Install https://packages.debian.org/sid/libgpiod-dev
-    sudo apt install -t sid libgpiod-dev
+    sudo apt install libgpiod-dev/sid
 
     # (Optionally unlink Debian repository keyring for safety)
     sudo rm /etc/apt/trusted.gpg.d/debian-archive-keyring.gpg
