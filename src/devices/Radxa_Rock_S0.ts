@@ -2,8 +2,9 @@ import { Device } from '../classes/Device';
 
 export class Radxa_Rock_S0 extends Device {
     static board = {
-        3: { chip: 0, line: 11 },
-        5: { chip: 0, line: 12 },
+        16: { chip: 0, line: 1 }
+        3:  { chip: 0, line: 11 },
+        5:  { chip: 0, line: 12 },
         27: { chip: 0, line: 15 },
         28: { chip: 0, line: 16 },
         15: { chip: 0, line: 17 },
@@ -14,7 +15,8 @@ export class Radxa_Rock_S0 extends Device {
         23: { chip: 1, line: 24 },
         24: { chip: 1, line: 25 },
 
-        8: { chip: 2, line: 1 },
+        10: { chip: 2, line: 0 }
+        8:  { chip: 2, line: 1 },
         37: { chip: 2, line: 2 },
         13: { chip: 2, line: 3 },
         35: { chip: 2, line: 4 },
@@ -26,16 +28,16 @@ export class Radxa_Rock_S0 extends Device {
         31: { chip: 2, line: 10 },
         22: { chip: 2, line: 11 },
         32: { chip: 2, line: 12 },
-        7: { chip: 2, line: 13 },
+        7:  { chip: 2, line: 13 },
         11: { chip: 2, line: 14 },
         18: { chip: 2, line: 15 },
         29: { chip: 2, line: 16 },
-
     };
 
     static bcm = {
-        PIN_3: this.board[3],
-        PIN_5: this.board[5],
+        PIN_16: this.board[16],
+        PIN_3:  this.board[3],
+        PIN_5:  this.board[5],
         PIN_27: this.board[27],
         PIN_28: this.board[28],
         PIN_15: this.board[15],
@@ -44,7 +46,8 @@ export class Radxa_Rock_S0 extends Device {
         PIN_19: this.board[19],
         PIN_23: this.board[23],
         PIN_24: this.board[24],
-        PIN_8: this.board[8],
+        PIN_10: this.board[10],
+        PIN_8:  this.board[8],
         PIN_37: this.board[37],
         PIN_13: this.board[13],
         PIN_35: this.board[35],
@@ -56,7 +59,7 @@ export class Radxa_Rock_S0 extends Device {
         PIN_31: this.board[31],
         PIN_22: this.board[22],
         PIN_32: this.board[32],
-        PIN_7: this.board[7],
+        PIN_7:  this.board[7],
         PIN_11: this.board[11],
         PIN_18: this.board[18],
         PIN_29: this.board[29],
