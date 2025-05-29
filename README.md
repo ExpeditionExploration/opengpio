@@ -8,6 +8,7 @@ While this library can be used on most devices, you'll need to know the chip and
 ## Prerequisites
 
 -   **libgpiod 2.x**
+    It uses [GPIO Character Device Userspace API v2](https://docs.kernel.org/userspace-api/gpio/chardev.html) that requires Linux kernel 5.10 or newer.
 
     To install libgpiod 2.x you will need the Debian repository mirror in your sources.
     You can run the script below to add it.
