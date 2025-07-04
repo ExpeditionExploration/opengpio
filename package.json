@@ -5,16 +5,16 @@
     "module": "./dist/esm/index.js",
     "scripts": {
         "test": "jest",
+        "build": "npm run build:cpp",
         "build:cpp": "node-gyp configure build",
-        "build:ts": "rm -rf dist; tsc -p tsconfig.json && tsc -p tsconfig.esm.json",
+        "build:ts": "rm -rf dist; npm run build:cjs && npm run build:esm",
+        "build:cjs": "tsc -p tsconfig.json",
+        "build:esm": "tsc -p tsconfig.esm.json",
         "build:ts:watch": "npm run build:ts -- --watch",
         "start": "ts-node src/index.ts",
         "lint": "eslint . --ext .ts",
         "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-        "bcmToChip": "node utils/bcmToChip.js",
-        "build:cjs": "tsc",
-        "build:esm": "tsc --project tsconfig.esm.json",
-        "build": "npm run build:cjs && npm run build:esm"
+        "bcmToChip": "node utils/bcmToChip.js"
     },
     "repository": {
         "type": "git",
