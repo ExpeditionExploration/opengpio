@@ -5,8 +5,8 @@ import { DriverStoppedError } from '../errors/DriverStoppedError';
 
 jest.mock('../bindings', () => ({
     bindings: {
-        output: jest.fn(),
-    },
+        output: jest.fn()
+    }
 }));
 
 describe('Output', () => {
@@ -61,5 +61,47 @@ describe('Output', () => {
         expect(() => {
             output.value = true;
         }).toThrow(DriverStoppedError);
+    });
+
+    it('should return the last value set when value getter is called', () => {
+        const output = new Output(gpio);
+
+        output.value = true;
+        expect(output.value).toBe(true);
+
+        output.value = false;
+        expect(output.value).toBe(false);
+    });
+
+    it('should return null when no value has been set', () => {
+        const output = new Output(gpio);
+
+        expect(output.value).toBe(null);
+    });
+
+    it('should throw DriverStoppedError when getting value after stop is invoked', () => {
+        const output = new Output(gpio);
+
+        output.stop();
+
+        expect(() => {
+            const value = output.value;
+        }).toThrow(DriverStoppedError);
+    });
+
+    it('should convert truthy values to boolean when setting value', () => {
+        const output = new Output(gpio);
+
+        output.value = 1 as any;
+        expect(output.value).toBe(true);
+        expect(mockSetter).toHaveBeenCalledWith(true);
+
+        output.value = 'test' as any;
+        expect(output.value).toBe(true);
+        expect(mockSetter).toHaveBeenCalledWith(true);
+
+        output.value = 0 as any;
+        expect(output.value).toBe(false);
+        expect(mockSetter).toHaveBeenCalledWith(false);
     });
 });

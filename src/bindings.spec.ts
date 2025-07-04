@@ -1,11 +1,4 @@
 import binding from 'bindings';
-import { OpenGpioBindings } from './types';
-// import { bindings, mocked } from './bindings';
-
-// const { bindings: realBindings } = require('./bindings') as { bindings: OpenGpioBindings; };
-// const { bindings: mockedBindings, mocked: isMocked } = require('./bindings') as { bindings: OpenGpioBindings; };
-
-
 jest.mock('bindings');
 
 describe('bindings', () => {

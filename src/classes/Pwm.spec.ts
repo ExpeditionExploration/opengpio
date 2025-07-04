@@ -5,8 +5,8 @@ import { DriverStoppedError } from '../errors/DriverStoppedError';
 
 jest.mock('../bindings', () => ({
     bindings: {
-        pwm: jest.fn(),
-    },
+        pwm: jest.fn()
+    }
 }));
 
 describe('Pwm', () => {
@@ -20,11 +20,7 @@ describe('Pwm', () => {
         mockSetFrequency = jest.fn();
         mockCleanup = jest.fn();
 
-        (bindings.pwm as jest.Mock).mockReturnValue([
-            mockSetDutyCycle,
-            mockSetFrequency,
-            mockCleanup,
-        ]);
+        (bindings.pwm as jest.Mock).mockReturnValue([mockSetDutyCycle, mockSetFrequency, mockCleanup]);
 
         gpio = { chip: 0, line: 1 };
     });

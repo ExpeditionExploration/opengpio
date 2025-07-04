@@ -5,8 +5,8 @@ import { DriverStoppedError } from '../errors/DriverStoppedError';
 
 jest.mock('../bindings', () => ({
     bindings: {
-        input: jest.fn(),
-    },
+        input: jest.fn()
+    }
 }));
 
 describe('Input', () => {
@@ -62,5 +62,13 @@ describe('Input', () => {
         input.stop();
 
         expect(() => input.value).toThrow(DriverStoppedError);
+    });
+
+    it('should throw an error when trying to set value', () => {
+        const input = new Input(gpio);
+
+        expect(() => {
+            input.value = true;
+        }).toThrow('Output cannot set value on an input pin');
     });
 });

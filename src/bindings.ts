@@ -14,11 +14,11 @@ if (!mocked) {
     debug('Using mocked bindings...');
     bindings = {
         info: () => 'mocked',
-        input: () => [() => true, () => { }],
-        output: () => [() => { }, () => { }],
-        pwm: () => [() => { }, () => { }, () => { }],
-        watch: () => [() => true, () => { }],
-    }
+        input: () => [() => true, () => {}],
+        output: () => [() => {}, () => {}],
+        pwm: () => [() => {}, () => {}, () => {}],
+        watch: () => [() => true, () => {}]
+    };
 }
 
 export { bindings, mocked };

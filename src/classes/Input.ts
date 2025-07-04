@@ -44,4 +44,9 @@ export class Input extends GpioDriver {
         this.debug('input value is', value);
         return value;
     }
+
+    set value(_value: boolean) {
+        this.debug('setting input value is not allowed');
+        throw new Error('Output cannot set value on an input pin');
+    }
 }

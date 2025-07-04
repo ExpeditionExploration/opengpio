@@ -13,7 +13,7 @@ export class Output extends GpioDriver {
      * Defaults to a no-op function.
      * @private
      */
-    private setter: PinSetter = () => { };
+    private setter: PinSetter = () => {};
 
     /**
      * Constructs an `Output` instance.
@@ -29,6 +29,7 @@ export class Output extends GpioDriver {
         this.setter = setter;
     }
 
+    private lastValue: boolean | null = null;
     /**
      * Sets the value of the output GPIO pin.
      *
@@ -42,6 +43,21 @@ export class Output extends GpioDriver {
             throw new DriverStoppedError('Cannot set value on stopped output');
         }
         this.debug('setting output value to', value);
+        this.lastValue = value;
         this.setter(value);
+    }
+
+    /**
+     * Gets the last value set on the output GPIO pin.
+     * @returns {boolean | null} The last value set on the GPIO pin, or `null` if no value has been set.
+     * @throws {DriverStoppedError} If the output has been stopped.
+     */
+    get value(): boolean | null {
+        if (this.stopped) {
+            this.debug('output is stopped, returning null');
+            throw new DriverStoppedError('Cannot get value on stopped output');
+        }
+        this.debug('getting output value, last value was', this.lastValue);
+        return this.lastValue;
     }
 }

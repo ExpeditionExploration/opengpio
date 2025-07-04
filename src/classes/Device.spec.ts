@@ -9,6 +9,11 @@ jest.mock('./Input');
 jest.mock('./Output');
 jest.mock('./Watch');
 jest.mock('./Pwm');
+jest.mock('../bindings', () => ({
+    bindings: {
+        watch: jest.fn()
+    }
+}));
 
 describe('Device', () => {
     beforeEach(() => {
@@ -18,7 +23,7 @@ describe('Device', () => {
     describe('getGpioFromIdentifier()', () => {
         const mockGpio: Gpio = { chip: 1, line: 2 };
         const mockBoard: Record<number, Gpio> = { 1: mockGpio };
-        const mockBcm: Record<string, Gpio> = { 'GPIO1': mockGpio };
+        const mockBcm: Record<string, Gpio> = { GPIO1: mockGpio };
 
         Device.board = mockBoard;
         Device.bcm = mockBcm;
@@ -38,7 +43,7 @@ describe('Device', () => {
         it('should throw an error for invalid identifier types', () => {
             expect(() => Device['getGpioFromIdentifier'](true as any)).toThrow(Error);
         });
-    })
+    });
 
     describe('input()', () => {
         const mockInputOptions: GpioInputOptions = { debounce: 10 };
@@ -58,7 +63,7 @@ describe('Device', () => {
             Device.output(mockGpio, mockOutputOptions);
             expect(Output).toHaveBeenCalledWith(mockGpio, mockOutputOptions);
         });
-    })
+    });
 
     describe('watch()', () => {
         const mockGpio: Gpio = { chip: 1, line: 2 };
