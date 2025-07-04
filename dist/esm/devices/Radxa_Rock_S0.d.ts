@@ -1,6 +1,10 @@
 import { Device } from '../classes/Device';
 export declare class Radxa_Rock_S0 extends Device {
     static board: {
+        16: {
+            chip: number;
+            line: number;
+        };
         3: {
             chip: number;
             line: number;
@@ -38,6 +42,10 @@ export declare class Radxa_Rock_S0 extends Device {
             line: number;
         };
         24: {
+            chip: number;
+            line: number;
+        };
+        10: {
             chip: number;
             line: number;
         };
@@ -107,6 +115,10 @@ export declare class Radxa_Rock_S0 extends Device {
         };
     };
     static bcm: {
+        PIN_16: {
+            chip: number;
+            line: number;
+        };
         PIN_3: {
             chip: number;
             line: number;
@@ -144,6 +156,10 @@ export declare class Radxa_Rock_S0 extends Device {
             line: number;
         };
         PIN_24: {
+            chip: number;
+            line: number;
+        };
+        PIN_10: {
             chip: number;
             line: number;
         };

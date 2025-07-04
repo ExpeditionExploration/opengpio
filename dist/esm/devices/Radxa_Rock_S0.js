@@ -4,6 +4,7 @@ export class Radxa_Rock_S0 extends Device {
 }
 _a = Radxa_Rock_S0;
 Radxa_Rock_S0.board = {
+    16: { chip: 0, line: 1 },
     3: { chip: 0, line: 11 },
     5: { chip: 0, line: 12 },
     27: { chip: 0, line: 15 },
@@ -14,6 +15,7 @@ Radxa_Rock_S0.board = {
     19: { chip: 1, line: 23 },
     23: { chip: 1, line: 24 },
     24: { chip: 1, line: 25 },
+    10: { chip: 2, line: 0 },
     8: { chip: 2, line: 1 },
     37: { chip: 2, line: 2 },
     13: { chip: 2, line: 3 },
@@ -32,6 +34,7 @@ Radxa_Rock_S0.board = {
     29: { chip: 2, line: 16 },
 };
 Radxa_Rock_S0.bcm = {
+    PIN_16: _a.board[16],
     PIN_3: _a.board[3],
     PIN_5: _a.board[5],
     PIN_27: _a.board[27],
@@ -42,6 +45,7 @@ Radxa_Rock_S0.bcm = {
     PIN_19: _a.board[19],
     PIN_23: _a.board[23],
     PIN_24: _a.board[24],
+    PIN_10: _a.board[10],
     PIN_8: _a.board[8],
     PIN_37: _a.board[37],
     PIN_13: _a.board[13],
