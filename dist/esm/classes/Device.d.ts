@@ -1,4 +1,3 @@
-/// <reference types="debug" />
 import { Edge, Gpio, GpioOutputOptions, GpioInputOptions } from '../types';
 import { Pwm } from './Pwm';
 import { Watch } from './Watch';

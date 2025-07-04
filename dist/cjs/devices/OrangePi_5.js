@@ -9,29 +9,29 @@ class OrangePi_5 extends Device_1.Device {
 exports.OrangePi_5 = OrangePi_5;
 _a = OrangePi_5;
 OrangePi_5.board = {
-    3: { chip: 1, line: 27 },
-    5: { chip: 1, line: 26 },
-    7: { chip: 1, line: 25 },
-    11: { chip: 1, line: 25 },
-    12: { chip: 1, line: 29 },
-    13: { chip: 1, line: 22 },
-    15: { chip: 1, line: 20 },
-    16: { chip: 0, line: 18 },
-    18: { chip: 1, line: 15 },
-    19: { chip: 1, line: 7 },
-    21: { chip: 1, line: 6 },
-    22: { chip: 1, line: 14 },
-    23: { chip: 1, line: 5 },
-    24: { chip: 1, line: 13 },
-    26: { chip: 1, line: 12 },
-    29: { chip: 1, line: 4 },
-    31: { chip: 1, line: 3 },
-    32: { chip: 1, line: 11 },
-    33: { chip: 1, line: 2 },
-    35: { chip: 1, line: 17 },
-    36: { chip: 1, line: 10 },
-    37: { chip: 1, line: 16 },
-    38: { chip: 1, line: 9 },
+    3: { chip: 1, line: 27 }, //GPIO2 GPIO1_D3
+    5: { chip: 1, line: 26 }, //GPIO3 GPIO1_D2
+    7: { chip: 1, line: 25 }, //GPIO4 GPIO1_D1
+    11: { chip: 1, line: 25 }, //GPIO17 GPIO1_D0
+    12: { chip: 1, line: 29 }, //GPIO18 GPIO1_D5
+    13: { chip: 1, line: 22 }, //GPIO27 GPIO1_C6
+    15: { chip: 1, line: 20 }, //GPIO22 GPIO1_C4
+    16: { chip: 0, line: 18 }, //GPIO23 GPIO0_C2
+    18: { chip: 1, line: 15 }, //GPIO24 GPIO1_B7
+    19: { chip: 1, line: 7 }, //GPIO10 GPIO1_A7
+    21: { chip: 1, line: 6 }, //GPIO9 GPIO1_A6
+    22: { chip: 1, line: 14 }, //GPIO25 GPIO1_B6
+    23: { chip: 1, line: 5 }, //GPIO11 GPIO1_A5
+    24: { chip: 1, line: 13 }, //GPIO8 GPIO1_B5
+    26: { chip: 1, line: 12 }, //GPIO7 GPIO1_B4
+    29: { chip: 1, line: 4 }, //GPIO5 GPIO1_A4
+    31: { chip: 1, line: 3 }, //GPIO6 GPIO1_A3
+    32: { chip: 1, line: 11 }, //GPIO12 GPIO1_B3
+    33: { chip: 1, line: 2 }, //GPIO13 GPIO1_A2
+    35: { chip: 1, line: 17 }, //GPIO19 GPIO1_C1
+    36: { chip: 1, line: 10 }, //GPIO16 GPIO1_B2
+    37: { chip: 1, line: 16 }, //GPIO26 GPIO1_C0
+    38: { chip: 1, line: 9 }, //GPIO20 GPIO1_B1
     40: { chip: 1, line: 8 } //GPIO21 GPIO1_B0
 };
 OrangePi_5.bcm = {

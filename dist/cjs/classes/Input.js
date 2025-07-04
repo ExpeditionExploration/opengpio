@@ -43,6 +43,10 @@ class Input extends GpioDriver_1.GpioDriver {
         this.debug('input value is', value);
         return value;
     }
+    set value(_value) {
+        this.debug('setting input value is not allowed');
+        throw new Error('Output cannot set value on an input pin');
+    }
 }
 exports.Input = Input;
 //# sourceMappingURL=Input.js.map

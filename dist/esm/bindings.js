@@ -15,7 +15,7 @@ else {
         input: () => [() => true, () => { }],
         output: () => [() => { }, () => { }],
         pwm: () => [() => { }, () => { }, () => { }],
-        watch: () => [() => true, () => { }],
+        watch: () => [() => true, () => { }]
     };
 }
 export { bindings, mocked };

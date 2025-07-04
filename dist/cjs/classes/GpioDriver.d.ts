@@ -1,5 +1,3 @@
-/// <reference types="debug" />
-/// <reference types="node" />
 import EventEmitter from "events";
 import { CleanupCallback } from "../types";
 /**

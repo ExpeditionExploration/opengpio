@@ -24,5 +24,6 @@ export declare class Input extends GpioDriver {
      * @returns The current value of the GPIO pin (`true` for high, `false` for low).
      */
     get value(): boolean;
+    set value(_value: boolean);
 }
 //# sourceMappingURL=Input.d.ts.map

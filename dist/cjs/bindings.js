@@ -22,7 +22,7 @@ else {
         input: () => [() => true, () => { }],
         output: () => [() => { }, () => { }],
         pwm: () => [() => { }, () => { }, () => { }],
-        watch: () => [() => true, () => { }],
+        watch: () => [() => true, () => { }]
     };
 }
 //# sourceMappingURL=bindings.js.map

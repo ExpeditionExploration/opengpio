@@ -18,6 +18,7 @@ export declare class Output extends GpioDriver {
      * @param options - Configuration options for the output pin.
      */
     constructor(gpio: Gpio, options?: GpioOutputOptions);
+    private lastValue;
     /**
      * Sets the value of the output GPIO pin.
      *
@@ -25,5 +26,11 @@ export declare class Output extends GpioDriver {
      * @throws {DriverStoppedError} If the output has been stopped.
      */
     set value(value: boolean);
+    /**
+     * Gets the last value set on the output GPIO pin.
+     * @returns {boolean | null} The last value set on the GPIO pin, or `null` if no value has been set.
+     * @throws {DriverStoppedError} If the output has been stopped.
+     */
+    get value(): boolean | null;
 }
 //# sourceMappingURL=Output.d.ts.map

@@ -24,6 +24,7 @@ class Output extends GpioDriver_1.GpioDriver {
          * @private
          */
         this.setter = () => { };
+        this.lastValue = null;
         this.debug('constructing output with', gpio, options);
         this.setter = setter;
     }
@@ -40,7 +41,21 @@ class Output extends GpioDriver_1.GpioDriver {
             throw new DriverStoppedError_1.DriverStoppedError('Cannot set value on stopped output');
         }
         this.debug('setting output value to', value);
+        this.lastValue = value;
         this.setter(value);
+    }
+    /**
+     * Gets the last value set on the output GPIO pin.
+     * @returns {boolean | null} The last value set on the GPIO pin, or `null` if no value has been set.
+     * @throws {DriverStoppedError} If the output has been stopped.
+     */
+    get value() {
+        if (this.stopped) {
+            this.debug('output is stopped, returning null');
+            throw new DriverStoppedError_1.DriverStoppedError('Cannot get value on stopped output');
+        }
+        this.debug('getting output value, last value was', this.lastValue);
+        return this.lastValue;
     }
 }
 exports.Output = Output;
